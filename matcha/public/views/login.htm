@@ -1,0 +1,13 @@
+<div class="container" ng-controller="loginCtrl">
+    <!-- Form container -->
+    <p class="error form-error">{{ errorMsg }}</p>
+    <form name="loginForm" class="form-login" ng-submit="login()">
+        <h2 class="form-login-heading">Se connécter</h2>
+        <fieldset>
+            <legend>Identifiants de connexion</legend>
+            <input type="email" class="form-control" name="username" placeholder="E-mail" ng-model="log.username" required/></br>
+            <input type="password" class="form-control" name="password" placeholder="Mot de passe" ng-model="log.password" required></br>
+        </fieldset>
+        <button type="submit" class="btn login-btn">Connexion</button>
+    </form>
+</div>

@@ -1,0 +1,61 @@
+<div class="container" ng-controller="registerCtrl">
+    <!-- Form container -->
+    <form name="regForm" class="form-register" ng-submit="register()">
+        <h2 class="form-signin-heading">Créer un compte</h2>
+
+        <!-- Connexion ID -->
+        <div class="regRequired">
+            <fieldset>
+                <legend>Identifiants de connexion</legend>
+                <label><input type="radio" ng-model="user.sex" value="H">Homme</label>
+                <label><input type="radio" ng-model="user.sex" value="F">Femme</label></br>
+
+                <select class="form-control select-null-value" ng-model="user.sexOrientation" required>
+                    <option value='' disabled selected>Orientation sexuelle</option>
+                    <option value="Hetero">Hetero</option>
+                    <option value="Gay">Gay</option>
+                    <option value="Bi">Les deux</option>
+                </select></br>
+
+                <input type="text" class="form-control" name="firstname" placeholder="Prénom" ng-model="user.fn" required autofocus></br>
+                <input type="text" class="form-control" name="secondname" placeholder="Nom" ng-model="user.sn" required></br>
+
+                <select class="form-control select-null-value" ng-model="date.day" required >
+                    <option value='' disabled selected>Jour</option>
+                    <option ng-repeat="day in ldays">{{day}}</option>
+                </select>
+                <select class="form-control select-null-value" ng-model="date.month" ng-disabled="!date.day" required >
+                    <option value='' disabled selected>Mois</option>
+                    <option ng-repeat="month in lmonths" value="{{month.nb}}">{{month.name}}</option>
+                </select>
+                <select class="form-control select-null-value" ng-model="date.year" ng-disabled="!date.month" ng-change="getYear()" required >
+                    <option value='' disabled selected>Année</option>
+                    <option ng-repeat="year in lyears">{{year}}</option>
+                </select></br>
+                <input type="text" class="form-control" name="pseudo" placeholder="Pseudo" ng-model="user.pseudo" ng-change="checkPseudo()" required><div class="error form-control-err" ng-show="pseudoValidity"><img src="img/del.png"/> Ce pseudo est déja enregistré.</div></br>
+                <input type="email" class="form-control" name="email" placeholder="E-mail" ng-model="user.mail" ng-change="checkEmail()" required><div class="error form-control-err" ng-show="emailValidity"><img src="img/del.png"/> Cet e-mail est déja enregistré.</div></br>
+                <input type="email" class="form-control" name="emailConfirm" placeholder="Confirmer l'E-mail" ng-model="emailConfirm" required/></br>
+                <input type="password" class="form-control" name="password" placeholder="Mot de passe" ng-model="user.password" required></br>
+            </fieldset>
+        </div>
+
+        <!-- Profil Edits -->
+        <div class="regNotRequired" ng-show="showProfil">
+            <profil-edit></profil-edit>
+        </div>
+
+        <!-- DEBUG -->
+        <div ng-show="debug">
+            <pre>user = {{user | json}}</pre>
+            <pre>{{user.ipinfo}}</pre>
+        </div>
+
+        <!-- Buttons -->
+        <div class="regBtn">
+            <button type="button" class="title" ng-click="toggle()">Editer mon profil</button>
+            <button type="submit" class="btn reg-btn">S'enregistrer</button>
+            <button type="reset" class="btn reg-btn" ng-click="reset()">Remettre a zéro</button>
+            <label><input type="checkbox" ng-model="debug">Debug JSON</input></label>
+        </div>
+    </form>
+</div>

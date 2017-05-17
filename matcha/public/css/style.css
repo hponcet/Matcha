@@ -1,0 +1,19 @@
+body {
+    background-image: url('/img/bkgd.png');
+    background-repeat: repeat;
+}
+.select-null-value {
+    box-shadow: none;
+}
+
+.error {
+    color: indianred;
+}
+.error img {
+    width: 15px;
+    height: 15px;
+}
+.form-control-err {
+    margin-left: 5px;
+    display: inline-block;
+}

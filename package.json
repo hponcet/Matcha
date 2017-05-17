@@ -1,0 +1,33 @@
+{
+  "name": "matcha",
+  "version": "0.0.1",
+  "description": "A simple dating site with micro framework (42web project)",
+  "main": "matcha.js",
+  "dependencies": {
+    "angular": "^1.6.3",
+    "angular-route": "^1.6.3",
+    "atob": "^2.0.3",
+    "body-parser": "^1.17.1",
+    "btoa": "^1.1.2",
+    "express": "^4.15.2",
+    "mongodb": "^2.2.25",
+    "nodemailer": "^4.0.1",
+    "rand-token": "^0.3.0",
+    "request": "^2.81.0",
+    "socket.io": "^1.7.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hponcet/Matcha.git"
+  },
+  "author": "hponcet / fde-monc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hponcet/Matcha/issues"
+  },
+  "homepage": "https://github.com/hponcet/Matcha#readme"
+}
