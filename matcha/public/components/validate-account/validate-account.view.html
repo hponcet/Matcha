@@ -1,0 +1,16 @@
+<div>
+  <div ng-show="validateAccountView[0]">
+    <h2>L'operation a bien été prise en compte.</h2>
+    <p>Vous allez etre redirigé vers l'accueil.</p>
+  </div>
+  <div ng-show="validateAccountView[1]">
+    <h2>Une erreur s'est produite.</h2>
+    <p>Aucun compte ne peut etre validé.</p>
+    <p>Il se peut que le lien que vous ayez suivis ne soit pas le bon.</p>
+    <p>Veuillez cliquer une nouvelle fois sur le lien qui vous a été envoyé dans le mail de confirmation.</p>
+  </div>
+  <div ng-show="validateAccountView[2]">
+    <h2> Votre compte ({{ mail }}) a été validé avec succès !</h2>
+    <p>Vous allez être redirigé vers la page de connexion.</p>
+  </div>
+</div>

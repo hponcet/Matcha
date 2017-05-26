@@ -1,4 +1,3 @@
-//-- Setup --//
 const	express 	= require("express"),
 		bodyParser 	= require("body-parser"),
 		conf		= require("./server.conf.js"),
@@ -16,7 +15,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static('public'));
 
-//-- API services --//
+//  -- API services --  //
 app.route('/api/citydb/dpts')
 	.get(function(req, res) {
 		locManager.getDpts(res, function (result) {
@@ -58,19 +57,40 @@ app.route('/api/check/pseudo/:pseudo')
 		})
 	})
 app.route('/api/mail/:action/:token')
-	.get(function(req, res) {
-		var data = tools.atob(req.params.token);
-		var mail = data.split('|')[0];
-		var token = data.split('|')[1];
+  .get((req, res) => {
+    var data = tools.atob(req.params.token)
+    var mail = data.split('|')[0]
+    var token = data.split('|')[1]
 
-		if (req.params.action == "validate") {
-			mailManager.validateMail(mail, token, function (data) {
-				res.json(data);
-			})
-		} else if (req.params.action == "error") {
-			mailManager.errorMail(mail, token);
-		}
-	})
+    console.log('yolo')
+    switch (req.params.action) {
+      case 'validate':
+        mailManager.validateMail(mail, token, function (data) {
+          res.json(data)
+        })
+        break
+      case 'error':
+        mailManager.errorMail(mail, token)
+        break
+      default:
+        break
+    }
+  })
+  .post((req, res) => {
+    let mail = tools.atob(req.params.token)
+    switch (req.params.action) {
+      case 'resend':
+        mailManager.reSendMail(mail, (objUser) => {
+          if (objUser !== null) {
+            console.log(objUser)
+            mailManager.sendMail(res, objUser)
+          }
+        })
+        break
+      default:
+        break
+    }
+  })
 app.route('/api/register')
 	.post(function(req, res) {
 		var token = genToken.generate(16);
@@ -79,9 +99,8 @@ app.route('/api/register')
 			'token': token,
 			'account': false
 		}
-		mailManager.sendMail(res, req.body);
-		accManager.insertUser(res, req.body);
-
+		mailManager.sendMail(res, req.body)
+		accManager.insertUser(res, req.body)
 	})
 app.route('/api/login')
 	.post(function(req, res) {
@@ -93,23 +112,36 @@ app.route('/api/login')
 	})
 app.route('/api/logout')
 	.post(function(req, res) {
-		var token = req.body.token;
-		sessManager.logout(token);
-		res.json({message: "Session closed."});
+		let token = req.body.token
+		sessManager.logout(token)
+		res.json({message: "Session closed."})
 	})
-
-app.all('/*', function(req, res, next) {
-	    // Just send the index.html for other files to support HTML5Mode
-	    res.sendFile('/views/base.htm', { root: __dirname });
-	});
-
-
+app.route('/api/profil')
+  .post(function (req, res) {
+    sessManager.auth(req.body.auth)
+      .then(() => {
+        let id = req.body.id
+        accManager.getUserById(res, id, (profil) => {
+          res.json(profil)
+        })
+      })
+      .catch((err) => {
+        res.json({
+          status: '401',
+          error: err
+        })
+      })
+  })
+app.all('/*', function (req, res, next) {
+  // Just send the index.html for other files to support HTML5Mode
+  res.sendFile('/views/base.htm', { root: __dirname })
+})
 
 // Connect to the database before starting the application server.
 
-var server = app.listen(conf.server['serverPort'], function () {
-	var port = server.address().port;
-	errManager.handleConsole("server", "App now running on port " + port);
+let server = app.listen(conf.server['serverPort'], function () {
+  var port = server.address().port
+  errManager.handleConsole('server', 'App now running on port ' + port)
 
-	sessManager.killOldSessionDeamon(); // Deamon - Close old sessions every 24h
-});
+  sessManager.killOldSessionDeamon(conf.server.SESSION_TIME) // Deamon - Close old sessions every 24h
+})

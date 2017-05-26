@@ -7,61 +7,63 @@ const errManager  = require('./error-manager');
 // Some usefull function
 function validateObjectID(OI) {
     var reg = /^[0-9a-f]{24}$/;
-
-    if (OI.match(reg)) {
+    let str = OI + ''
+    if (str.match(reg)) {
         return true;
     } else {
         return false;
     }
 };
 // Search an user by ObjectID
-exports.getUserById = function(res, id, callback) {
-    MongoClient.connect(conf.db.mongoURL, function(err, db)
-    {
-        // Check url integrity
-        if (validateObjectID(id) === false) {
-            errManager.handleError(res, "Bad URL request", "Failed to find user.", 404);
-            db.close();
-        }
-        // Failed to connect ta database.
-        else if (err) {
-            errManager.handleError(res, err.message, "Failed to connect database.");
-        }
+exports.getUserById = function (res, id, callback) {
+  if (validateObjectID(id) === false) {
+    errManager.handleError(null, '[WARNING]', 'Trying to falsify ObjectID.', 304)
+    callback({
+      status: '304',
+      message: '[WARNING] Trying to falsify ObjectID.'
+    })
+  } else {
+    MongoClient.connect(conf.db.mongoURL, function (err, db) {
+      // Check url integrity
+      if (err) {
+        errManager.handleError(res, 'Failed to find user.', err.message, 404)
+      } else {
+        var users = db.collection('users')
+        var OID = new ObjectID(id)
 
-        // Search user in database
-        else {
-            var users = db.collection('users');
-            var OID = new ObjectID(id);
-
-            users.findOne({"_id":OID}, function(e, data)
-            {
-                if (e) {
-                    errManager.handleError(res, e.message, "Failed to find user.", 404);
-                } else {
-                    callback(data);
-                }
-            });
-            db.close();
-        }
-    });
-};
+        users.findOne({ '_id': OID }, function (err, data) {
+          if (err) {
+            errManager.handleError(res, 'Failed to find user.', err.message, 404)
+          } else {
+            callback({
+              status: '200',
+              data: data
+            })
+          }
+        })
+        db.close()
+      }
+    })
+  }
+}
 // Get all users
-exports.getUsers = function(res, callback) {
-    MongoClient.connect(conf.db.mongoURL, function(err, db)
-    {
+exports.getUsers = function (res, callback) {
+  MongoClient.connect(conf.db.mongoURL, function (err, db) {
+    if (err) {
+      errManager.handleError(res, 'Failed to connect db.', err.message)
+    } else {
+      var users = db.collection('users')
+      users.find().toArray(function (err, result) {
         if (err) {
-            errManager.handleError(res, null, err.message);
-
+          errManager.handleError(res, 'Failed to connect db.', err.message)
         } else {
-            var users = db.collection('users');
-
-            users.find().toArray(function(err, result) {
-        	       callback(result);
-            });
-            db.close();
+          callback(result)
         }
-    });
-};
+      })
+      db.close()
+    }
+  })
+}
 // Insert new user
 exports.insertUser = function(res, dataUser) {
     MongoClient.connect(conf.db.mongoURL, function(err, db)

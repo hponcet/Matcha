@@ -12,14 +12,17 @@
     "express": "^4.15.2",
     "mongodb": "^2.2.25",
     "nodemailer": "^4.0.1",
+    "promise": "^7.1.1",
     "rand-token": "^0.3.0",
     "request": "^2.81.0",
-    "socket.io": "^1.7.3"
+    "socket.io": "^1.7.3",
+    "standard": "^10.0.2",
+    "webpack": "^2.6.0"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hponcet/Matcha.git"

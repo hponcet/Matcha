@@ -11,10 +11,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-sanitize.min.js"></script>
     </head>
     <body>
-        <div ng-controller="headerCtrl">
-            <ul ng-bind-html="menu"></ul>
-        </div>
+        <header-zone></header-zone>
         <ng-view></ng-view>
-        <script src="/controllers/ctrl.core.js"></script>
+        <script src="app.bundle.js"></script>
     </body>
 </html>

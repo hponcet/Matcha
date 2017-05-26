@@ -21,7 +21,8 @@ module.exports = {
         hostAddr:       '127.0.0.1:3000/',
         siteTitle:      'Matcha',
         rootPath:       __dirname,
-        viewsLocation:  __dirname + '/views'
+        viewsLocation:  __dirname + '/views',
+        SESSION_TIME:   604800
     },
     //-- Database config --//
     db: {
