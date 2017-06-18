@@ -10,7 +10,7 @@ npm install;
 docker-compose up -d && mongoimport --db matcha --collection citydb --file ./json/matcha-citydb.json
 npm start;
 ```
-If you want an users db base:
+If you want an users database:
 ```
 mongoimport --db matcha --collection users --file ./json/matcha-current-users.json
 ```
