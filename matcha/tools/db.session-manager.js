@@ -7,7 +7,7 @@ const SESSION_TIME = conf.server.SESSION_TIME
 const FREQ_SESSION_CONTROL = 86400 * 1000 // 24h (msec)
 
 function killSession (token) {
-  MongoClient.connect(conf.db.mongoURL, function (err, db) {
+  MongoClient.connect(conf.db.mongoURI, function (err, db) {
     if (err) {
       errManager.handleError(null, 'Failed to connect database.', err, 500)
     } else {
@@ -18,7 +18,7 @@ function killSession (token) {
   })
 }
 function createSession (token) {
-  MongoClient.connect(conf.db.mongoURL, function (err, db) {
+  MongoClient.connect(conf.db.mongoURI, function (err, db) {
     if (err) {
       errManager.handleError(null, 'Failed to connect database.', err, 500)
     } else {
@@ -39,7 +39,7 @@ module.exports = {
   },
 
   login: function (res, username, password, callback, startSession) {
-    MongoClient.connect(conf.db.mongoURL, function (err, db) {
+    MongoClient.connect(conf.db.mongoURI, function (err, db) {
       if (err) {
         errManager.handleError(res, 'Failed to connect database.', err.message, 500)
       } else {
@@ -103,7 +103,7 @@ module.exports = {
     errManager.handleConsole('SERVER', 'KillOldSessions process have been launch. Operations every ' + (freqControl / 1000) + 's.')
     setInterval(function () {
       errManager.handleConsole('SERVER', 'Clean session in progress...')
-      MongoClient.connect(conf.db.mongoURL, function (err, db) {
+      MongoClient.connect(conf.db.mongoURI, function (err, db) {
         if (err) {
           errManager.handleError(null, 'Failed to connect database.', err.message, 500)
         } else {
@@ -140,7 +140,7 @@ module.exports = {
 
   auth: (auth) => {
     return new Promise(function (resolve, reject) {
-      MongoClient.connect(conf.db.mongoURL, function (err, db) {
+      MongoClient.connect(conf.db.mongoURI, function (err, db) {
         if (err) {
           errManager.handleError(null, 'Failed to connect database.', err.message, 500)
           reject(err)

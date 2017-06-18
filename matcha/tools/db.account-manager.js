@@ -23,7 +23,7 @@ exports.getUserById = function (res, id, callback) {
       message: '[WARNING] Trying to falsify ObjectID.'
     })
   } else {
-    MongoClient.connect(conf.db.mongoURL, function (err, db) {
+    MongoClient.connect(conf.db.mongoURI, function (err, db) {
       // Check url integrity
       if (err) {
         errManager.handleError(res, 'Failed to find user.', err.message, 404)
@@ -48,7 +48,7 @@ exports.getUserById = function (res, id, callback) {
 }
 // Get all users
 exports.getUsers = function (res, callback) {
-  MongoClient.connect(conf.db.mongoURL, function (err, db) {
+  MongoClient.connect(conf.db.mongoURI, function (err, db) {
     if (err) {
       errManager.handleError(res, 'Failed to connect db.', err.message)
     } else {
@@ -66,7 +66,7 @@ exports.getUsers = function (res, callback) {
 }
 // Insert new user
 exports.insertUser = function(res, dataUser) {
-    MongoClient.connect(conf.db.mongoURL, function(err, db)
+    MongoClient.connect(conf.db.mongoURI, function(err, db)
     {
         if (err) {
             errManager.handleError(res, err.message, "Failed to connect database.");
@@ -81,7 +81,7 @@ exports.insertUser = function(res, dataUser) {
 };
 // Check if mail exist
 exports.checkMail = function(res, mail, callback) {
-    MongoClient.connect(conf.db.mongoURL, function(err, db)
+    MongoClient.connect(conf.db.mongoURI, function(err, db)
     {
         if (err) {
             errManager.handleError(res, err.message, "Failed to connect database.");
@@ -100,7 +100,7 @@ exports.checkMail = function(res, mail, callback) {
 };
 // Check if pseudo exist
 exports.checkPseudo = function(res, pseudo, callback) {
-    MongoClient.connect(conf.db.mongoURL, function(err, db)
+    MongoClient.connect(conf.db.mongoURI, function(err, db)
     {
         if (err) {
             errManager.handleError(res, err.message, "Failed to connect database.");

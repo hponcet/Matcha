@@ -5,9 +5,9 @@ version: '2'
 services:
   mongodata:
     image: mongo:3.4
-    container_name: "matcha-mongo"
+    container_name: "mongo-matcha"
+    ports:
+      - "27017:27017"
     volumes:
       - /data/db_matcha
-    ports:
-      - "27117:27117"
     command: --rest

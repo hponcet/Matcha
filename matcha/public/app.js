@@ -13,7 +13,6 @@ import './components/profil/profil.index'
 import './services/auth.service'
 
 angular
-
 .module('matcha', [
   'ngRoute',
   'ngCookies',

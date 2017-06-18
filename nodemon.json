@@ -6,16 +6,15 @@
   "stdin": true,
   "ignore": [
     ".git",
-    "./node_modules/"
+    "./node_modules/",
+    "./matcha/public/"
   ],
   "events": {
     "restart": "osascript -e 'display notification \"App restarted due to:\n'$FILENAME'\" with title \"nodemon\"'"
   },
   "ignoreRoot": "ignoreRoot",
   "watch": [
-    "./matcha/server.js",
-    "./matcha/routes.js",
-    "./matcha/server.conf.js"
+    "./matcha/"
   ],
   "env": {
     "NODE_ENV": "development"

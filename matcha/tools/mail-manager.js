@@ -67,7 +67,7 @@ exports.sendMail = function (res, userObj) {
   })
 }
 exports.validateMail = function (mail, token, callback) {
-  MongoClient.connect(conf.db.mongoURL, function (err, db) {
+  MongoClient.connect(conf.db.mongoURI, function (err, db) {
     if (err) {
       errManager.handleError(null, err.message, 'Failed to connect database.')
     } else {
@@ -90,7 +90,7 @@ exports.validateMail = function (mail, token, callback) {
   })
 }
 exports.errorMail = function (mail, token) {
-  MongoClient.connect(conf.db.mongoURL, function (err, db) {
+  MongoClient.connect(conf.db.mongoURI, function (err, db) {
     if (err) {
       errManager.handleError(null, err.message, 'Failed to connect database.')
     } else {
@@ -106,7 +106,7 @@ exports.errorMail = function (mail, token) {
   })
 }
 exports.reSendMail = function (mail, callback) {
-  MongoClient.connect(conf.db.mongoURL, function (err, db) {
+  MongoClient.connect(conf.db.mongoURI, function (err, db) {
     if (err) {
       errManager.handleError(null, err.message, 'Failed to connect database.')
     } else {
