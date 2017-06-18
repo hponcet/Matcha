@@ -1,6 +1,11 @@
 'use strict'
 
 import angular from 'angular'
+import angularCookies from 'angular-cookies'
+import angularSanitize from 'angular-sanitize'
+import angularRoute from 'angular-route'
+import routes from './routes/routes'
+
 import './components/register/register.index'
 import './components/profil-edit/profilEdit.index'
 import './components/validate-account/validateAccount.index'
@@ -12,11 +17,10 @@ import './components/profil/profil.index'
 
 import './services/auth.service'
 
-angular
-.module('matcha', [
-  'ngRoute',
-  'ngCookies',
-  'ngSanitize',
+const dependencies = [
+  angularCookies,
+  angularSanitize,
+  angularRoute,
   'register.module',
   'header.module',
   'profilEdit.module',
@@ -26,56 +30,27 @@ angular
   'profil.module',
   'auth.service',
   'validateAccount.module'
-])
+]
 
-.run(function ($rootScope, $cookies) {
-  var loggedUser = $cookies.getObject('session')
-  var guestUser = {
-    id: '0',
-    pseudo: 'Guest',
-    token: '0'
-  }
-  if (loggedUser != null) {
-    $rootScope.session = loggedUser.sessionID
-  } else {
-    $rootScope.session = guestUser
-  }
-})
+angular
+.module('matcha', dependencies)
+.run(authentificate)
+.config(routes)
 
-.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-  $locationProvider.html5Mode(true)
-  $routeProvider
-  .when('/', {
-    templateUrl: '/views/index.htm'
+function authentificate ($rootScope, $cookies, $location) {
+  var user = $cookies.getObject('session')
+  if (!user) {
+    user = { authentificate: false, pseudo: 'Guest', id: null, token: null }
+  }
+  $rootScope.session = user
+
+  $rootScope.$on('$locationChangeStart', function(event, next, current) {
+    const requested_page = $location.path()
+    const guest_pages = ['/login', '/register', '/']
+    const restricted = (guest_pages.indexOf(requested_page) == -1)
+
+    if (restricted && !user.authentificate) {
+      $location.path('/login')
+    }
   })
-  .when('/error', {
-    templateUrl: '/views/error.htm'
-  })
-  .when('/register', {
-    templateUrl: '../components/register/register.view.html',
-    controller: 'registerController'
-  })
-  .when('/mail/:action/:data', {
-    templateUrl: '../components/validate-account/validate-account.view.html',
-    controller: 'validateAccountController'
-  })
-  .when('/login', {
-    templateUrl: '../components/login/login.view.html',
-    controller: 'loginController'
-  })
-  .when('/logout', {
-    templateUrl: '../components/logout/logout.view.html',
-    controller: 'logoutController'
-  })
-  .when('/home', {
-    templateUrl: '../components/home/home.view.html',
-    controller: 'homeController'
-  })
-  .when('/profil', {
-    templateUrl: '../components/profil/profil.view.html',
-    controller: 'profilController'
-  })
-  .otherwise('/', {
-    templateUrl: '/views/index.htm'
-  })
-}])
+}

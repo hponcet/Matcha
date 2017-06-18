@@ -2,12 +2,13 @@ const path = require('path')
 
 module.exports = {
   entry: {
-    app: './matcha/public/app.js'
+    'app': './matcha/public/app.js'
   },
   output: {
-    filename: './matcha/public/app.bundle.js'
+    path: path.join(__dirname, '/matcha/public'),
+    filename: './dist/app.bundle.js'
   },
   watchOptions: {
     poll: true
-  },
+  }
 }

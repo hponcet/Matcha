@@ -12,8 +12,8 @@ const	express 	= require("express"),
 	app 		= express();
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(express.static('public'));
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static(__dirname + '/public'))
 
 //  -- API services --  //
 app.route('/api/citydb/dpts')
@@ -132,10 +132,14 @@ app.route('/api/profil')
         })
       })
   })
+
 app.all('/*', function (req, res, next) {
-  // Just send the index.html for other files to support HTML5Mode
-  res.sendFile('/views/base.htm', { root: __dirname })
+  res.sendFile('/views/base.html', { root: __dirname })
 })
+app.all('/dist/app.bundle.js', function (req, res, next) {
+	  res.sendFile('/public/dist/app.bundle.js', { root: __dirname })
+	})
+
 
 // Connect to the database before starting the application server.
 

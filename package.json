@@ -5,7 +5,9 @@
   "main": "matcha.js",
   "dependencies": {
     "angular": "^1.6.3",
-    "angular-route": "^1.6.3",
+    "angular-cookies": "^1.6.4",
+    "angular-route": "^1.6.4",
+    "angular-sanitize": "^1.6.4",
     "atob": "^2.0.3",
     "body-parser": "^1.17.1",
     "btoa": "^1.1.2",
@@ -21,7 +23,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --config nodemon.json ./matcha/server.js"
+    "start": "node ./matcha/server.js",
+    "watch:server": "nodemon --config nodemon.json ./matcha/server.js",
+    "watch:client": "webpack --watch"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"

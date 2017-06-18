@@ -15,7 +15,7 @@ function loginController ($scope, $http, $cookies) {
           $scope.errorMsg = 'Le compte n\'a pas été validé. Merci de suivre le lien de validation dans le mail qui vous a été envoyé.'
         }
       } else {
-        var expire = new Date(res.data.sessionID.expire * 1000)
+        var expire = new Date(res.data.expire * 1000)
         $cookies.putObject('session', res.data, {expires: expire})
         window.location.href = '/home'
       }

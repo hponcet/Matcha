@@ -77,7 +77,11 @@ module.exports = {
               callback({
                 success: true,
                 message: 'Authenticated.',
-                sessionID: token
+                authentificate: true,
+                id: user._id,
+                pseudo: user.pseudo,
+                token: genToken.generate(48),
+                expire: tools.newTimestamp() + SESSION_TIME * 1
               })
               errManager.handleConsole('users', 'Logged. (' + user._id + ')')
               return startSession(token)
