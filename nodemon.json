@@ -13,13 +13,12 @@
   },
   "ignoreRoot": "ignoreRoot",
   "watch": [
-    "./server/",
-    "./modules/",
-    "./classes/",
-    "server.js"
+    "./matcha/server.js",
+    "./matcha/routes.js",
+    "./matcha/server.conf.js"
   ],
   "env": {
     "NODE_ENV": "development"
   },
-  "ext": "js json html"
+  "ext": "js json"
 }

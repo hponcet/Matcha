@@ -139,9 +139,8 @@ app.all('/*', function (req, res, next) {
 
 // Connect to the database before starting the application server.
 
-let server = app.listen(conf.server['serverPort'], function () {
-  var port = server.address().port
+let server = app.listen(conf.server['serverPort'], () => {
+  let port = server.address().port
   errManager.handleConsole('server', 'App now running on port ' + port)
-
   sessManager.killOldSessionDeamon(conf.server.SESSION_TIME) // Deamon - Close old sessions every 24h
 })

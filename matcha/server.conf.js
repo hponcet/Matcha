@@ -1,9 +1,16 @@
-//-- Info config --//
-const fname = 'Poncet';
-const sname = 'Hugues';
-const email = 'hponcet@student.42.fr';
-const cr    = '© 2016/2017';
-const orga  = '42school';
+//-- Info params --//
+const fname = 'Poncet'
+const sname = 'Hugues'
+const email = 'hponcet@student.42.fr'
+const cr    = '© 2016/2017'
+const orga  = '42school'
+
+//-- DB params --//
+const DB_PORT = 27117
+const DB_NAME = 'matcha'
+
+//-- Server params --//
+const HOST_ADDRESS = 'localhost'
 
 
 module.exports = {
@@ -14,19 +21,17 @@ module.exports = {
         cr:     cr,
         orga:   orga
     },
-    //-- Site config --//
     server: {
         serverPort:     process.env.PORT || 3000,
         socketPort:     '',
-        hostAddr:       '127.0.0.1:3000/',
+        hostAddr:       HOST_ADDRESS + ':3000/',
         siteTitle:      'Matcha',
         rootPath:       __dirname,
         viewsLocation:  __dirname + '/views',
         SESSION_TIME:   604800
     },
-    //-- Database config --//
     db: {
-        mongoURL:       'mongodb://localhost:27017/matcha',
+        mongoURL:       'mongodb://' + HOST_ADDRESS + ':' + DB_PORT + '/' + DB_NAME,
         mongoUsers:     'users'
     }
 };

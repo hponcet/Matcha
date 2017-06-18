@@ -9,5 +9,5 @@ services:
     volumes:
       - /data/db_matcha
     ports:
-      - "27017:27017"
+      - "27117:27117"
     command: --rest
