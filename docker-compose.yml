@@ -1,0 +1,13 @@
+# if you've docker installed on your computer, this is an easy way to make
+# your mongo instance up
+# run 'docker-compose up -d'
+version: '2'
+services:
+  mongodata:
+    image: mongo:3.4
+    container_name: "matcha-mongo"
+    volumes:
+      - /data/db_matcha
+    ports:
+      - "27017:27017"
+    command: --rest
