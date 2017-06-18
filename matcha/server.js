@@ -1,15 +1,15 @@
 const	express 	= require("express"),
-		bodyParser 	= require("body-parser"),
-		conf		= require("./server.conf.js"),
-		genToken	= require("rand-token"),
-		sessManager	= require('./tools/db.session-manager.js'),
-		accManager 	= require("./tools/db.account-manager.js"),
-		locManager 	= require("./tools/db.city-manager.js"),
-		mailManager = require("./tools/mail-manager.js"),
-		errManager = require("./tools/error-manager.js"),
-		tools		= require("./tools/tools-manager.js"),
-		request		= require('request'),
-		app 		= express();
+	bodyParser 	= require("body-parser"),
+	conf		= require("./server.conf.js"),
+	genToken	= require("rand-token"),
+	sessManager	= require('./tools/db.session-manager.js'),
+	accManager 	= require("./tools/db.account-manager.js"),
+	locManager 	= require("./tools/db.city-manager.js"),
+	mailManager = require("./tools/mail-manager.js"),
+	errManager = require("./tools/error-manager.js"),
+	tools		= require("./tools/tools-manager.js"),
+	request		= require('request'),
+	app 		= express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));

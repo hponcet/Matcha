@@ -20,9 +20,12 @@
     "webpack": "^2.6.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --config nodemon.json ./matcha/server.js"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hponcet/Matcha.git"
