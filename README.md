@@ -19,4 +19,4 @@ mongoimport --db matcha --collection users --file ./json/matcha-current-users.js
 Use of API [ipinfo.io/](https://ipinfo.io/)
 
 ## Contributors
--hponcet : hponcet@student.42.fr
+- hponcet : hponcet@student.42.fr
