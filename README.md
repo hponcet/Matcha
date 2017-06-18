@@ -1,5 +1,5 @@
 ## Motivation
-A web project of datings of the school 42 in MEAN stack.
+A web project of datings from school 42 in MEAN stack.
 
 ## Installation
 Consider that Docker and MongoDB are installed and running.
@@ -19,4 +19,4 @@ mongoimport --db matcha --collection users --file ./json/matcha-current-users.js
 Use of API [ipinfo.io/](https://ipinfo.io/)
 
 ## Contributors
-hponcet : hponcet@student.42.fr
+-hponcet : hponcet@student.42.fr
