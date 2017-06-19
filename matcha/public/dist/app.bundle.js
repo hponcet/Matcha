@@ -63,14 +63,14 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(28);
+__webpack_require__(29);
 module.exports = angular;
 
 
@@ -81,7 +81,7 @@ module.exports = angular;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_controller__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__home_controller__ = __webpack_require__(15);
 
 
 /* unused harmony default export */ var _unused_webpack_default_export = (__WEBPACK_IMPORTED_MODULE_0_angular___default.a
@@ -96,7 +96,7 @@ module.exports = angular;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_controller__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__login_controller__ = __webpack_require__(16);
 
 
 /* unused harmony default export */ var _unused_webpack_default_export = (__WEBPACK_IMPORTED_MODULE_0_angular___default.a
@@ -111,7 +111,7 @@ module.exports = angular;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__logout_controller__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__logout_controller__ = __webpack_require__(17);
 
 
 /* unused harmony default export */ var _unused_webpack_default_export = (__WEBPACK_IMPORTED_MODULE_0_angular___default.a
@@ -126,8 +126,8 @@ module.exports = angular;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__header_controller__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__header_directive__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__header_controller__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__header_directive__ = __webpack_require__(19);
 
 
 
@@ -144,8 +144,8 @@ module.exports = angular;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__profilEdit_controller__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__profilEdit_directive__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__profilEdit_controller__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__profilEdit_directive__ = __webpack_require__(21);
 
 
 
@@ -162,7 +162,7 @@ module.exports = angular;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__profil_controller__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__profil_controller__ = __webpack_require__(22);
 
 
 /* unused harmony default export */ var _unused_webpack_default_export = (__WEBPACK_IMPORTED_MODULE_0_angular___default.a
@@ -177,8 +177,8 @@ module.exports = angular;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__register_controller__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__register_service__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__register_controller__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__register_service__ = __webpack_require__(24);
 
 
 
@@ -195,7 +195,7 @@ module.exports = angular;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__validateAccount_controller__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__validateAccount_controller__ = __webpack_require__(25);
 
 
 /* unused harmony default export */ var _unused_webpack_default_export = (__WEBPACK_IMPORTED_MODULE_0_angular___default.a
@@ -205,6 +205,53 @@ module.exports = angular;
 
 /***/ }),
 /* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (routes);
+
+routes.$inject = ['$routeProvider', '$locationProvider']
+function routes ($routeProvider, $locationProvider) {
+  $locationProvider.html5Mode(true)
+  $routeProvider
+  .when('/', {
+    templateUrl: '/views/index.htm'
+  })
+  .when('/error', {
+    templateUrl: '/views/error.htm'
+  })
+  .when('/register', {
+    templateUrl: '../components/register/register.view.html',
+    controller: 'registerController'
+  })
+  .when('/mail/:action/:data', {
+    templateUrl: '../components/validate-account/validate-account.view.html',
+    controller: 'validateAccountController'
+  })
+  .when('/login', {
+    templateUrl: '../components/login/login.view.html',
+    controller: 'loginController'
+  })
+  .when('/logout', {
+    templateUrl: '../components/logout/logout.view.html',
+    controller: 'logoutController'
+  })
+  .when('/home', {
+    templateUrl: '../components/home/home.view.html',
+    controller: 'homeController'
+  })
+  .when('/profil', {
+    templateUrl: '../components/profil/profil.view.html',
+    controller: 'profilController'
+  })
+  .otherwise('/', {
+    templateUrl: '/views/index.htm'
+  })
+}
+
+
+/***/ }),
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -248,19 +295,11 @@ function authService ($http, $cookies, $location) {
 
 
 /***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(25);
-module.exports = 'ngCookies';
-
-
-/***/ }),
 /* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(26);
-module.exports = 'ngRoute';
+module.exports = 'ngCookies';
 
 
 /***/ }),
@@ -268,24 +307,32 @@ module.exports = 'ngRoute';
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(27);
-module.exports = 'ngSanitize';
+module.exports = 'ngRoute';
 
 
 /***/ }),
 /* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(28);
+module.exports = 'ngSanitize';
+
+
+/***/ }),
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular_cookies__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular_cookies__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angular_cookies___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_angular_cookies__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_sanitize__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_sanitize__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular_sanitize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_angular_sanitize__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_route__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_route__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_route___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular_route__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes_routes__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes_routes__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_register_register_index__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_profil_edit_profilEdit_index__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_validate_account_validateAccount_index__ = __webpack_require__(8);
@@ -294,7 +341,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_home_home_index__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_logout_logout_index__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_profil_profil_index__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__services_auth_service__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__services_auth_service__ = __webpack_require__(10);
 
 
 
@@ -341,10 +388,10 @@ function authentificate ($rootScope, $cookies, $location) {
   }
   $rootScope.session = user
 
-  $rootScope.$on('$locationChangeStart', function(event, next, current) {
-    const requested_page = $location.path()
-    const guest_pages = ['/login', '/register', '/']
-    const restricted = (guest_pages.indexOf(requested_page) == -1)
+  $rootScope.$on('$locationChangeStart', (event, next, current) => {
+    const requestedPage = $location.path()
+    const guestPages = ['/login', '/register', '/']
+    const restricted = (guestPages.indexOf(requestedPage) === -1)
 
     if (restricted && !user.authentificate) {
       $location.path('/login')
@@ -354,7 +401,7 @@ function authentificate ($rootScope, $cookies, $location) {
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -370,7 +417,7 @@ function homeController ($scope, $http, $rootScope) {
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -401,7 +448,7 @@ function loginController ($scope, $http, $cookies) {
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -420,7 +467,7 @@ function logoutController ($rootScope, $http, $cookies) {
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -447,7 +494,7 @@ function HeaderController ($rootScope, $scope) {
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -463,7 +510,7 @@ function HeaderDirective () {
 
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -492,7 +539,7 @@ function profilEditController ($scope, $http) {
 
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -508,7 +555,7 @@ function profilEditDirective () {
 
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -527,7 +574,7 @@ function profilController (authService, $scope, $http) {
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -604,7 +651,7 @@ function registerController ($scope, $http, $location, RegisterService) {
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -634,7 +681,7 @@ function RegisterService () {
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -678,7 +725,7 @@ function validateAccountController ($scope, $http, $routeParams) {
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports) {
 
 /**
@@ -1015,7 +1062,7 @@ angular.module('ngCookies').provider('$$cookieWriter', /** @this */ function $$C
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports) {
 
 /**
@@ -2250,7 +2297,7 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports) {
 
 /**
@@ -3012,7 +3059,7 @@ angular.module('ngSanitize').filter('linky', ['$sanitize', function($sanitize) {
 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports) {
 
 /**
@@ -36387,53 +36434,6 @@ $provide.value("$locale", {
 })(window);
 
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
-
-/***/ }),
-/* 29 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (routes);
-
-routes.$inject = ['$routeProvider', '$locationProvider']
-function routes ($routeProvider, $locationProvider) {
-  $locationProvider.html5Mode(true)
-  $routeProvider
-  .when('/', {
-    templateUrl: '/views/index.htm'
-  })
-  .when('/error', {
-    templateUrl: '/views/error.htm'
-  })
-  .when('/register', {
-    templateUrl: '../components/register/register.view.html',
-    controller: 'registerController'
-  })
-  .when('/mail/:action/:data', {
-    templateUrl: '../components/validate-account/validate-account.view.html',
-    controller: 'validateAccountController'
-  })
-  .when('/login', {
-    templateUrl: '../components/login/login.view.html',
-    controller: 'loginController'
-  })
-  .when('/logout', {
-    templateUrl: '../components/logout/logout.view.html',
-    controller: 'logoutController'
-  })
-  .when('/home', {
-    templateUrl: '../components/home/home.view.html',
-    controller: 'homeController'
-  })
-  .when('/profil', {
-    templateUrl: '../components/profil/profil.view.html',
-    controller: 'profilController'
-  })
-  .otherwise('/', {
-    templateUrl: '/views/index.htm'
-  })
-}
-
 
 /***/ })
 /******/ ]);
