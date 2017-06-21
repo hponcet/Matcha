@@ -73,6 +73,7 @@ exports.validateMail = function (mail, token, callback) {
     } else {
       var users = db.collection('users')
       var regMail = '^' + mail + '$'
+      console.log(mail, '\n', token)
       users.findOneAndReplace({
         'mail': { '$regex': regMail, $options: 'i' },
         'validation.token': token
