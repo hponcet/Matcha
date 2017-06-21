@@ -46,10 +46,10 @@ function authentificate ($rootScope, $cookies, $location) {
 
   $rootScope.$on('$locationChangeStart', (event, next, current) => {
     const requestedPage = $location.path()
-    const guestPages = ['/login', '/register', '/']
-    const restricted = (guestPages.indexOf(requestedPage) === -1)
+    const restrictedPages = ['/home', '/profil', '/finder', '/matchs']
+    const restricted = (restrictedPages.indexOf(requestedPage) === -1)
 
-    if (restricted && !user.authentificate) {
+    if (restricted && user.authentificate) {
       $location.path('/login')
     }
   })

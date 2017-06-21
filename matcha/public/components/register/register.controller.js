@@ -3,10 +3,6 @@ export default registerController
 registerController.$inject = ['$scope', '$http', '$location', 'RegisterService']
 function registerController ($scope, $http, $location, RegisterService) {
   $scope.registerView = [true, false]
-  $http.get('/api/ipinfo')
-  .then(function (res) {
-    $scope.user.geoData = res.data
-  })
   $scope.master = {
     'sex': 'H'
   }
