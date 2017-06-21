@@ -8,6 +8,7 @@
     "angular-cookies": "^1.6.4",
     "angular-route": "^1.6.4",
     "angular-sanitize": "^1.6.4",
+    "async": "^2.4.1",
     "atob": "^2.0.3",
     "body-parser": "^1.17.1",
     "bson": "^1.0.4",

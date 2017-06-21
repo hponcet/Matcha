@@ -390,10 +390,10 @@ function authentificate ($rootScope, $cookies, $location) {
 
   $rootScope.$on('$locationChangeStart', (event, next, current) => {
     const requestedPage = $location.path()
-    const guestPages = ['/login', '/register', '/']
-    const restricted = (guestPages.indexOf(requestedPage) === -1)
+    const restrictedPages = ['/home', '/profil', '/finder', '/matchs']
+    const restricted = (restrictedPages.indexOf(requestedPage) === -1)
 
-    if (restricted && !user.authentificate) {
+    if (restricted && user.authentificate) {
       $location.path('/login')
     }
   })
@@ -583,10 +583,6 @@ function profilController (authService, $scope, $http) {
 registerController.$inject = ['$scope', '$http', '$location', 'RegisterService']
 function registerController ($scope, $http, $location, RegisterService) {
   $scope.registerView = [true, false]
-  $http.get('/api/ipinfo')
-  .then(function (res) {
-    $scope.user.geoData = res.data
-  })
   $scope.master = {
     'sex': 'H'
   }
