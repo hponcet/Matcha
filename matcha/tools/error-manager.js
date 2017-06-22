@@ -1,19 +1,19 @@
-//-- handle errors --//
-function send(type, message) {
-    var d = new Date();
-    var time = d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+const tools = require('./tools-manager')
 
-    console.log(time + " " + type.toUpperCase() + ": " + message);
+function send(type, message) {
+  const date = tools.getDate()
+  console.log(date + " [" + type.toUpperCase() + "] " + message)
 }
 
 module.exports = {
     handleError: function(res, reason, message, code) {
-        var cause = "";
+        let cause = ""
+
         if (message != null)
-            cause = " " + message;
-        send("ERROR", reason + cause);
+            cause = " " + message
+        send("ERROR", reason + cause)
         if (res !== null)
-            res.status(code || 500).json({"error": message});
+            res.status(code || 500).json({"error": reason})
     },
     handleConsole: function (type, message) {
         send(type, message);
