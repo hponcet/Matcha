@@ -33,6 +33,24 @@ function createSession (token) {
   })
 }
 
+function getIdbyToken (token, callback) {
+  MongoClient.connect(conf.db.mongoURI, function (err, db) {
+    if (err) {
+      errManager.handleError(null, 'Failed to connect database.', err, 500)
+    } else {
+      let sessions = db.collection('sessions')
+      sessions.findOne({'session.token': token}, function (err, session) {
+        if (err) {
+          errManager.handleError(null, 'Failed to connect database.', err, 500)
+        } else {
+          callback(session.session.id)
+        }
+      })
+      db.close()
+    }
+  })
+}
+
 module.exports = {
   startSession: function (token) {
     createSession(token)
@@ -44,47 +62,46 @@ module.exports = {
         errManager.handleError(res, 'Failed to connect database.', err.message, 500)
       } else {
         let users = db.collection('users')
-
         users.findOne({ 'mail': username }, function (err, user) {
           if (err) {
             errManager.handleError(res, 'Failed to connect database.', err.message, 500)
           } else {
             if (!user) {
               callback({
-                success: false,
+                authentificated: false,
                 reason: 1,
                 message: 'Authentication failed. User not found.'
               })
             } else if (password !== user.password) {
               callback({
-                success: false,
+                authentificated: false,
                 reason: 2,
                 message: 'Authentication failed. Wrong password.'
               })
             } else if (user.validation.account === false) {
               callback({
-                success: false,
+                authentificated: false,
                 reason: 3,
                 message: 'Authentication failed. Account is not validated.'
               })
             } else {
-              let token = {
+              const sessionExpire = tools.newTimestamp() + SESSION_TIME * 1
+              const token = genToken.generate(48)
+              const authObj = {
                 id: user._id,
                 pseudo: user.pseudo,
-                token: genToken.generate(48),
-                expire: tools.newTimestamp() + SESSION_TIME * 1
+                token: token,
+                expire: sessionExpire
               }
               callback({
-                success: true,
                 message: 'Authenticated.',
-                authentificate: true,
-                id: user._id,
+                authentificated: true,
                 pseudo: user.pseudo,
-                token: genToken.generate(48),
-                expire: tools.newTimestamp() + SESSION_TIME * 1
+                token: token,
+                expire: sessionExpire
               })
-              errManager.handleConsole('users', 'Logged. (' + user._id + ')')
-              return startSession(token)
+              errManager.handleConsole('users', 'Logged. (' + user.pseudo + ')')
+              return startSession(authObj)
             }
           }
         })
@@ -149,7 +166,7 @@ module.exports = {
           errManager.handleError(null, 'Failed to connect database.', err.message, 500)
           reject(err)
         } else {
-          let sessions = db.collection('sessions')
+          const sessions = db.collection('sessions')
           sessions.findOne({ 'id': auth.id, 'token': auth.token }, function (err, session) {
             if (err) {
               reject(err)
@@ -160,5 +177,7 @@ module.exports = {
         }
       })
     })
-  }
+  },
+
+  getIdbyToken: getIdbyToken
 }

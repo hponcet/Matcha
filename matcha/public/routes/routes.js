@@ -32,7 +32,15 @@ function routes ($routeProvider, $locationProvider) {
   })
   .when('/profil', {
     templateUrl: '../components/profil/profil.view.html',
-    controller: 'profilController'
+    controller: 'profilController',
+    resolve: {
+      'auth': (authService) => {
+        return authService.auth()
+      },
+      'currentUser': (authService) => {
+        return authService.getCurrentUser()
+      }
+    }
   })
   .otherwise('/', {
     templateUrl: '/views/index.htm'

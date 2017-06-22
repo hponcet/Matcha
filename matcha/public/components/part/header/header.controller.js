@@ -11,7 +11,7 @@ function HeaderController ($rootScope, $scope) {
   var htmlRegister = '<li><a href="/register">Créer un compte</a></li>'
   var htmlAccount = '<li><a href="/profil">' + session.pseudo + '</a></li>'
 
-  if (!session.authentificate) {
+  if (!session.authentificated) {
     $scope.menu = htmlIndex + htmlLogin + htmlRegister
   } else {
     htmlIndex = '<li><a href="/home">Accueil</a></li>'

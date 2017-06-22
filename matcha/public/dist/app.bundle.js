@@ -242,7 +242,15 @@ function routes ($routeProvider, $locationProvider) {
   })
   .when('/profil', {
     templateUrl: '../components/profil/profil.view.html',
-    controller: 'profilController'
+    controller: 'profilController',
+    resolve: {
+      'auth': (authService) => {
+        return authService.auth()
+      },
+      'currentUser': (authService) => {
+        return authService.getCurrentUser()
+      }
+    }
   })
   .otherwise('/', {
     templateUrl: '/views/index.htm'
@@ -262,34 +270,62 @@ function routes ($routeProvider, $locationProvider) {
 .module('auth.service', [])
 .service('authService', authService));
 
-authService.$inject = ['$http', '$cookies', '$location']
-function authService ($http, $cookies, $location) {
-  return {
-    tokenize: (obj) => {
-      let loggedUser = $cookies.getObject('session')
-      console.log(loggedUser)
-      if (loggedUser) {
-        obj.auth = {
-          token: loggedUser.token,
-          id: loggedUser.id
-        }
-      } else {
-        obj.auth = {
-          token: null,
-          id: null
-        }
+authService.$inject = ['$http', '$cookies', '$location', '$rootScope', '$q']
+function authService ($http, $cookies, $location, $rootScope, $q) {
+
+  function resetSession () {
+    const session =
+      {
+        authentificated: false,
+        pseudo: 'Guest',
+        token: false
       }
-      return obj
-    },
-    getSessionId: () => {
-      let loggedUser = $cookies.getObject('session')
-      if (loggedUser) {
-        return loggedUser.id
+    $cookies.putObject('session', session)
+  }
+
+  function getSession () {
+    const session = $cookies.getObject('session') ||
+      {
+        authentificated: false,
+        pseudo: 'Guest',
+        token: false
+      }
+    return session
+  }
+
+  function auth () {
+    return $q((resolve, reject) => {
+      const session = $cookies.getObject('session')
+      if (session && session.authentificated && session.token) {
+        //AJOUTER UNE FONCTION POUR CHECK COTER SERVER SI LA SESSION EST ACTICVE
+        resolve()
       } else {
+        resetSession()
         $location.path('/login')
-        throw 'ERROR: You need to login.'
+        console.log('[Authentifaction] Failed.')
       }
-    }
+    })
+  }
+
+  function getCurrentUser () {
+    return $q((resolve, reject) => {
+      const session = $cookies.getObject('session')
+      if (session && session.authentificated && session.token) {
+        $http.post('/api/profil', { token: session.token })
+          .then((res) => {
+            resolve(res.data.data)
+          })
+      } else {
+        resetSession()
+        $location.path('/login')
+      }
+    })
+  }
+
+  return {
+    auth: auth,
+    getSession: getSession,
+    getCurrentUser: getCurrentUser
   }
 }
 
@@ -381,22 +417,9 @@ __WEBPACK_IMPORTED_MODULE_0_angular___default.a
 .run(authentificate)
 .config(__WEBPACK_IMPORTED_MODULE_4__routes_routes__["a" /* default */])
 
-function authentificate ($rootScope, $cookies, $location) {
-  var user = $cookies.getObject('session')
-  if (!user) {
-    user = { authentificate: false, pseudo: 'Guest', id: null, token: null }
-  }
-  $rootScope.session = user
-
-  $rootScope.$on('$locationChangeStart', (event, next, current) => {
-    const requestedPage = $location.path()
-    const restrictedPages = ['/home', '/profil', '/finder', '/matchs']
-    const restricted = (restrictedPages.indexOf(requestedPage) === -1)
-
-    if (restricted && user.authentificate) {
-      $location.path('/login')
-    }
-  })
+function authentificate ($rootScope, authService, $location) {
+  const session = authService.getSession()
+  $rootScope.session = session
 }
 
 
@@ -409,9 +432,6 @@ function authentificate ($rootScope, $cookies, $location) {
 
 homeController.$inject = ['$scope', '$http', '$rootScope']
 function homeController ($scope, $http, $rootScope) {
-  if ($rootScope.session.token === '0') {
-    window.location.href = '/'
-  }
   $scope.sessionID = $rootScope.session.token
 }
 
@@ -429,7 +449,7 @@ function loginController ($scope, $http, $cookies) {
   $scope.login = function () {
     $http.post('/api/login', $scope.log)
     .then(function (res) {
-      if (!res.data.success) {
+      if (!res.data.authentificated) {
         if (res.data.reason === 1) { // User not found
           $scope.errorMsg = 'L\'adresse e-mail fournit ne correspond a aucun compte.'
         } else if (res.data.reason === 2) { // Wrong password
@@ -437,8 +457,9 @@ function loginController ($scope, $http, $cookies) {
         } else if (res.data.reason === 3) { // Account not validated
           $scope.errorMsg = 'Le compte n\'a pas été validé. Merci de suivre le lien de validation dans le mail qui vous a été envoyé.'
         }
+        console.warn(res.data.message)
       } else {
-        var expire = new Date(res.data.expire * 1000)
+        const expire = new Date(res.data.expire * 1000)
         $cookies.putObject('session', res.data, {expires: expire})
         window.location.href = '/home'
       }
@@ -484,7 +505,7 @@ function HeaderController ($rootScope, $scope) {
   var htmlRegister = '<li><a href="/register">Créer un compte</a></li>'
   var htmlAccount = '<li><a href="/profil">' + session.pseudo + '</a></li>'
 
-  if (!session.authentificate) {
+  if (!session.authentificated) {
     $scope.menu = htmlIndex + htmlLogin + htmlRegister
   } else {
     htmlIndex = '<li><a href="/home">Accueil</a></li>'
@@ -561,15 +582,9 @@ function profilEditDirective () {
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = (profilController);
 
-profilController.$inject = ['authService', '$scope', '$http']
-function profilController (authService, $scope, $http) {
-  let id = authService.getSessionId()
-  console.log('id:', id)
-  let req = { id: id }
-  $http.post('/api/profil', authService.tokenize(req))
-  .then(function (res) {
-    $scope.user = res.data
-  })
+profilController.$inject = ['currentUser', '$scope', '$rootScope', '$http']
+function profilController (currentUser, $scope, $rootScope, $http) {
+  $scope.user = currentUser
 }
 
 

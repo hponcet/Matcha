@@ -37,20 +37,7 @@ angular
 .run(authentificate)
 .config(routes)
 
-function authentificate ($rootScope, $cookies, $location) {
-  var user = $cookies.getObject('session')
-  if (!user) {
-    user = { authentificate: false, pseudo: 'Guest', id: null, token: null }
-  }
-  $rootScope.session = user
-
-  $rootScope.$on('$locationChangeStart', (event, next, current) => {
-    const requestedPage = $location.path()
-    const restrictedPages = ['/home', '/profil', '/finder', '/matchs']
-    const restricted = (restrictedPages.indexOf(requestedPage) === -1)
-
-    if (restricted && user.authentificate) {
-      $location.path('/login')
-    }
-  })
+function authentificate ($rootScope, authService, $location) {
+  const session = authService.getSession()
+  $rootScope.session = session
 }

@@ -1,30 +1,28 @@
 const request = require('request')
-const conf = require("./server.conf.js")
-const genToken = require("rand-token")
-const sessManager = require('./tools/db.session-manager.js')
-const accManager = require("./tools/db.account-manager.js")
-const locManager = require("./tools/db.city-manager.js")
-const mailManager = require("./tools/mail-manager.js")
-const errManager = require("./tools/error-manager.js")
-const tools = require("./tools/tools-manager.js")
+const genToken = require('rand-token')
+const session = require('./tools/db.session-manager.js')
+const account = require('./tools/db.account-manager.js')
+const location = require('./tools/db.city-manager.js')
+const mail = require('./tools/mail-manager.js')
+const tools = require('./tools/tools-manager.js')
 
 const express = require('express')
 const router = express.Router()
 
 router
 .get('/citydb/dpts', (req, res) => {
-  locManager.getDpts(res, function (result) {
-    res.json(result);
+  location.getDpts(res, function (result) {
+    res.json(result)
   })
 })
 .get('/citydb/:dptnb', (req, res) => {
-  locManager.getCity(res, req.params.dptnb, function (result) {
-    res.json(result);
+  location.getCity(res, req.params.dptnb, function (result) {
+    res.json(result)
   })
 })
-.get('/api/citydb/:dptnb/:cityName', function(req, res) {
-  locManager.getPCode(res, req.params.dptnb, req.params.cityName, function (result) {
-    res.json(result);
+.get('/api/citydb/:dptnb/:cityName', function (req, res) {
+  location.getPCode(res, req.params.dptnb, req.params.cityName, function (result) {
+    res.json(result)
   })
 })
 .get('/ipinfo', (req, res) => {
@@ -54,13 +52,13 @@ router
   })
 })
 .get('/check/mail/:mail', (req, res) => {
-  accManager.checkMail(res, req.params.mail, function (result) {
-    res.json(result);
+  account.checkMail(res, req.params.mail, function (result) {
+    res.json(result)
   })
 })
 .get('/check/pseudo/:pseudo', (req, res) => {
-  accManager.checkPseudo(res, req.params.pseudo, function (result) {
-    res.json(result);
+  account.checkPseudo(res, req.params.pseudo, function (result) {
+    res.json(result)
   })
 })
 .get('/mail/:action/:token', (req, res) => {
@@ -71,30 +69,30 @@ router
   console.log('yolo')
   switch (req.params.action) {
     case 'validate':
-    mailManager.validateMail(mail, token, function (data) {
-      res.json(data)
-    })
-    break
+      mail.validateMail(mail, token, function (data) {
+        res.json(data)
+      })
+      break
     case 'error':
-    mailManager.errorMail(mail, token)
-    break
+      mail.errorMail(mail, token)
+      break
     default:
-    break
+      break
   }
 })
 .post('/mail/:action/:token', (req, res) => {
   let mail = tools.atob(req.params.token)
   switch (req.params.action) {
     case 'resend':
-    mailManager.reSendMail(mail, (objUser) => {
-      if (objUser !== null) {
-        console.log(objUser)
-        mailManager.sendMail(res, objUser)
-      }
-    })
-    break
+      mail.reSendMail(mail, (objUser) => {
+        if (objUser !== null) {
+          console.log(objUser)
+          mail.sendMail(res, objUser)
+        }
+      })
+      break
     default:
-    break
+      break
   }
 })
 .post('/register', (req, res) => {
@@ -109,34 +107,25 @@ router
     'token': token,
     'account': false
   }
-  mailManager.sendMail(res, req.body)
-  accManager.insertUser(res, req.body)
+  mail.sendMail(res, req.body)
+  account.insertUser(res, req.body)
 })
 .post('/login', (req, res) => {
-  var username = req.body.username;
-  var password = req.body.password;
-  sessManager.login(res, username, password, function (auth) {
-    res.json(auth);
-  }, sessManager.startSession)
+  const username = req.body.username
+  const password = req.body.password
+  session.login(res, username, password, function (auth) {
+    res.json(auth)
+  }, session.startSession)
 })
 .post('/logout', (req, res) => {
   let token = req.body.token
-  sessManager.logout(token)
-  res.json({message: "Session closed."})
+  session.logout(token)
+  res.json({message: 'Session closed.'})
 })
-.post('/profil',  (req, res) => {
-  sessManager.auth(req.body.auth)
-  .then(() => {
-    let id = req.body.id
-    accManager.getUserById(res, id, (profil) => {
-      res.json(profil)
-    })
-  })
-  .catch((err) => {
-    res.json({
-      status: '401',
-      error: err
-    })
+.post('/profil', (req, res) => {
+  const token = req.body.token
+  account.getUserByToken(res, token, (user) => {
+    res.json(user)
   })
 })
 

@@ -2,29 +2,29 @@ const MongoClient = require('mongodb').MongoClient
 const ObjectID    = require('mongodb').ObjectID
 const conf        = require('../server.conf.js')
 const async        = require('async')
+const session = require('./db.session-manager')
 const errManager  = require('./error-manager')
 const request = require('request-promise')
 
-function validateObjectID (OI) {
-  var reg = /^[0-9a-f]{24}$/
-  let str = OI + ''
-  if (str.match(reg)) {
-    return true
+function validateObjectID (id) {
+  const validate = ObjectID.isValid(id)
+  if (validate) {
+    return new ObjectID(id)
   } else {
     return false
   }
 }
 
-async function getGeoDataInfos (user) {
-
+function getUserByToken (res, token, callback) {
+  session.getIdbyToken(token, (id) => { getUserById(res, id, callback) })
 }
-// Search an user by ObjectID
-exports.getUserById = function (res, id, callback) {
-  if (validateObjectID(id) === false) {
+function getUserById (res, origId, callback) {
+  const id = validateObjectID(origId)
+  if (!id) {
     errManager.handleError(null, '[WARNING]', 'Trying to falsify ObjectID.', 304)
     callback({
       status: '304',
-      message: '[WARNING] Trying to falsify ObjectID.'
+      message: '[WARNING] Trying to falsify IDs.'
     })
   } else {
     MongoClient.connect(conf.db.mongoURI, function (err, db) {
@@ -32,16 +32,18 @@ exports.getUserById = function (res, id, callback) {
       if (err) {
         errManager.handleError(res, 'Failed to find user.', err.message, 404)
       } else {
-        var users = db.collection('users')
-        var OID = new ObjectID(id)
-
-        users.findOne({ '_id': OID }, function (err, data) {
+        const users = db.collection('users')
+        users.findOne({ '_id': id }, function (err, user) {
           if (err) {
             errManager.handleError(res, 'Failed to find user.', err.message, 404)
+            callback({
+              status: '401',
+              data: null
+            })
           } else {
             callback({
               status: '200',
-              data: data
+              data: user
             })
           }
         })
@@ -50,8 +52,7 @@ exports.getUserById = function (res, id, callback) {
     })
   }
 }
-// Get all users
-exports.getUsers = function (res, callback) {
+function getUsers (res, callback) {
   MongoClient.connect(conf.db.mongoURI, function (err, db) {
     if (err) {
       errManager.handleError(res, 'Failed to connect db.', err.message)
@@ -68,8 +69,7 @@ exports.getUsers = function (res, callback) {
     }
   })
 }
-// Insert new user
-exports.insertUser = (res, dataUser) => {
+function insertUser (res, dataUser) {
   const options =
     {
       uri: 'https://ipinfo.io/' + dataUser.ip + '/json',
@@ -102,31 +102,32 @@ exports.insertUser = (res, dataUser) => {
     })
     .catch((err) => {
       console.log(err)
-      return user
+      return dataUser
     })
-
 }
-// Check if mail exist
-exports.checkMail = function(res, mail, callback) {
-  MongoClient.connect(conf.db.mongoURI, function(err, db)
-  {
+function checkMail (res, mail, callback) {
+  MongoClient.connect(conf.db.mongoURI, (err, db) => {
     if (err) {
-      errManager.handleError(res, err.message, "Failed to connect database.");
+      errManager.handleError(res, err.message, 'Failed to connect database.')
     } else {
-      var users = db.collection('users');
-      var regMail = '^'+mail+'$';
-      users.findOne({"mail": {'$regex': regMail,$options:'i'}}, function(err, ret) {
-        if (ret == null)
-        callback(false);
-        else
-        callback(true);
-      });
-      db.close();
+      const users = db.collection('users')
+      const regMail = '^' + mail + '$'
+      users.findOne({'mail': {'$regex': regMail, $options: 'i'}}, (err, ret) => {
+        if (err) {
+          errManager.handleError(res, err.message, 'Failed to connect database.')
+        } else {
+          if (ret == null) {
+            callback(false)
+          } else {
+            callback(true)
+          }
+        }
+      })
+      db.close()
     }
-  });
-};
-// Check if pseudo exist
-exports.checkPseudo = function(res, pseudo, callback) {
+  })
+}
+function checkPseudo (res, pseudo, callback) {
   MongoClient.connect(conf.db.mongoURI, function(err, db)
   {
     if (err) {
@@ -144,3 +145,12 @@ exports.checkPseudo = function(res, pseudo, callback) {
     }
   });
 };
+
+module.exports = {
+  getUserByToken: getUserByToken,
+  getUserById: getUserById,
+  insertUser: insertUser,
+  getUsers: getUsers,
+  checkMail: checkMail,
+  checkPseudo: checkPseudo
+}
