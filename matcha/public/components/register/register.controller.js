@@ -29,7 +29,7 @@ function registerController ($scope, $http, $location, RegisterService, authServ
   $scope.pseudoValidity = false
   $scope.checkEmail = function () {
     $http.get('/api/check/mail/' + $scope.user.mail)
-    .then(function (res) {
+    .then((res) => {
       if (res.data === false) {
         $scope.emailValidity = false
       } else {
@@ -59,8 +59,10 @@ function registerController ($scope, $http, $location, RegisterService, authServ
     }
   }
   $scope.reSend = () => {
-    $http.post('/api/mail/resend/' + btoa($scope.user.mail))
-    .then($scope.registerView = [false, true, false])
+    $http.get('/api/mail/resend/' + btoa($scope.user.mail))
+    .then(() => {
+      $scope.registerView = [false, true, false]
+    })
   }
 }
 export default registerController

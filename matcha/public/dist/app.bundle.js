@@ -138,24 +138,7 @@ module.exports = angular;
 
 
 /***/ }),
-/* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__profilEdit_controller__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__profilEdit_directive__ = __webpack_require__(21);
-
-
-
-/* unused harmony default export */ var _unused_webpack_default_export = (__WEBPACK_IMPORTED_MODULE_0_angular___default.a
-.module('profilEdit.module', [])
-.controller('profilEditController', __WEBPACK_IMPORTED_MODULE_1__profilEdit_controller__["a" /* default */])
-.directive('profilEdit', __WEBPACK_IMPORTED_MODULE_2__profilEdit_directive__["a" /* default */]));
-
-
-/***/ }),
+/* 5 */,
 /* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -256,7 +239,16 @@ function routes ($routeProvider, $locationProvider) {
     templateUrl: '../components/home/home.view.html',
     controller: 'homeController',
     resolve: {
+<<<<<<< HEAD
       'auth': auth
+=======
+      'auth': (authService) => {
+        return authService.auth()
+      },
+      'currentUser': (authService) => {
+        return authService.getCurrentUser()
+      }
+>>>>>>> cb5d0f6ecc3c3b3b2ebb39fdc5d3c760c74a4311
     }
   })
   .when('/profil', {
@@ -265,6 +257,18 @@ function routes ($routeProvider, $locationProvider) {
     resolve: {
       'auth': auth,
       'currentUser': getCurrentUser
+    }
+  })
+  .when('/profil/:id', {
+    templateUrl: '../components/profil/profil.view.html',
+    controller: 'profilController',
+    resolve: {
+      'auth': (authService) => {
+        return authService.auth()
+      },
+      'currentUser': (authService) => {
+        return authService.getCurrentUser()
+      }
     }
   })
   .otherwise('/', {
@@ -290,34 +294,36 @@ function routes ($routeProvider, $locationProvider) {
 
 authService.$inject = ['$http', '$cookies', '$location', '$rootScope', '$q']
 function authService ($http, $cookies, $location, $rootScope, $q) {
+<<<<<<< HEAD
   function hash (password) {
     return __WEBPACK_IMPORTED_MODULE_1_crypto_js___default.a.SHA512(password).toString()
+=======
+  const guest = {
+    authentificated: false,
+    pseudo: 'Guest',
+    token: false
+>>>>>>> cb5d0f6ecc3c3b3b2ebb39fdc5d3c760c74a4311
   }
 
   function resetSession () {
-    const session =
-      {
-        authentificated: false,
-        pseudo: 'Guest',
-        token: false
-      }
-    $cookies.putObject('session', session)
+    $cookies.putObject('session', guest)
   }
 
   function getSession () {
-    const session = $cookies.getObject('session') ||
-      {
-        authentificated: false,
-        pseudo: 'Guest',
-        token: false
-      }
-    return session
+    return $cookies.getObject('session') || guest
   }
 
   function auth () {
+    function authFail () {
+      resetSession()
+      $location.path('/login')
+      console.log('Authentifaction failed.')
+    }
+
     return $q((resolve, reject) => {
       const session = $cookies.getObject('session')
       if (session && session.authentificated && session.token) {
+<<<<<<< HEAD
         $http.post('/api/auth', {token: session.token})
           .then((res) => {
             if (res.data.auth) {
@@ -332,6 +338,15 @@ function authService ($http, $cookies, $location, $rootScope, $q) {
         resetSession()
         $location.path('/login')
         console.log('401: Authentification failed.')
+=======
+        $http.post('/api/auth', { id: session.id, token: session.token })
+        .then((authentified) => {
+          authentified ? resolve() : reject()
+        })
+      } else {
+        authFail()
+        reject()
+>>>>>>> cb5d0f6ecc3c3b3b2ebb39fdc5d3c760c74a4311
       }
     })
   }
@@ -400,7 +415,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular_route___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular_route__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__routes_routes__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__components_register_register_index__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_profil_edit_profilEdit_index__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_profil_profil_edit_profilEdit_index__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_validate_account_validateAccount_index__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_part_header_header_index__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_login_login_index__ = __webpack_require__(2);
@@ -562,51 +577,8 @@ function HeaderDirective () {
 
 
 /***/ }),
-/* 20 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (profilEditController);
-
-profilEditController.$inject = ['$scope', '$http']
-function profilEditController ($scope, $http) {
-  $scope.nbDpt = null
-  $scope.getCities = function () {
-    $http.get('/api/citydb/' + $scope.user.dptNb)
-    .then(function (data) {
-      $scope.cities = data.data
-    })
-  }
-  $scope.getPCode = function () {
-    $http.get('/api/citydb/' + $scope.user.dptNb + '/' + $scope.user.city)
-    .then(function (data) {
-      $scope.pcodes = data.data
-    })
-  }
-  $http.get('/api/citydb/dpts')
-  .then(function (data) {
-    $scope.dpts = data.data
-  })
-}
-
-
-/***/ }),
-/* 21 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony default export */ __webpack_exports__["a"] = (profilEditDirective);
-
-function profilEditDirective () {
-  return {
-    restrict: 'EA',
-    replace: true,
-    templateUrl: './components/profil-edit/profil-edit.view.html'
-  }
-}
-
-
-/***/ }),
+/* 20 */,
+/* 21 */,
 /* 22 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -36478,6 +36450,7 @@ $provide.value("$locale", {
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 
 /***/ }),
+<<<<<<< HEAD
 /* 30 */,
 /* 31 */,
 /* 32 */,
@@ -43374,6 +43347,74 @@ $provide.value("$locale", {
 	return CryptoJS.TripleDES;
 
 }));
+=======
+/* 30 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__profilEdit_controller__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__profilEdit_directive__ = __webpack_require__(32);
+
+
+
+/* unused harmony default export */ var _unused_webpack_default_export = (__WEBPACK_IMPORTED_MODULE_0_angular___default.a
+.module('profilEdit.module', [])
+.controller('profilEditController', __WEBPACK_IMPORTED_MODULE_1__profilEdit_controller__["a" /* default */])
+.directive('profilEdit', __WEBPACK_IMPORTED_MODULE_2__profilEdit_directive__["a" /* default */]));
+
+
+/***/ }),
+/* 31 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (profilEditController);
+
+profilEditController.$inject = ['$scope', '$http']
+function profilEditController ($scope, $http) {
+  $scope.nbDpt = null
+  $scope.pcodes = []
+  $scope.getCities = function () {
+    $http.get('/api/citydb/' + $scope.user.dptNb)
+    .then(function (data) {
+      console.log('getCities', data)
+      $scope.cities = data.data
+    })
+  }
+  $scope.getPCode = function () {
+    console.log($scope.user.dptNb + '/' + $scope.user.city)
+    $http.get('/api/citydb/' + $scope.user.dptNb + '/' + $scope.user.city)
+    .then(function (data) {
+      $scope.pcodes = data.data
+      console.log('getPCode', $scope.pcodes)
+    })
+  }
+  $http.get('/api/citydb/dpts')
+  .then(function (data) {
+    console.log(data)
+    $scope.dpts = data.data
+  })
+}
+
+
+/***/ }),
+/* 32 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = (profilEditDirective);
+
+function profilEditDirective () {
+  return {
+    restrict: 'EA',
+    replace: true,
+    templateUrl: './components/profil/profil-edit/profil-edit.view.html'
+  }
+}
+
+>>>>>>> cb5d0f6ecc3c3b3b2ebb39fdc5d3c760c74a4311
 
 /***/ })
 /******/ ]);

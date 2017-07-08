@@ -1,15 +1,15 @@
 const MongoClient = require('mongodb').MongoClient
-const conf = require('../config.js')
-const log = require('./log.service')
+const conf = require('../server.conf.js')
+const errManager = require('./error-manager')
 const genToken = require('rand-token')
-const tools = require('./tools.service')
+const tools = require('./tools-manager')
 const SESSION_TIME = conf.server.SESSION_TIME
-const FREQ_SESSION_CONTROL = conf.server.FREQ_SESSION_CONTROL // 24h (msec)
+const FREQ_SESSION_CONTROL = 86400 * 1000 // 24h (msec)
 
 function killSession (token) {
   MongoClient.connect(conf.db.mongoURI, function (err, db) {
     if (err) {
-      log.handleError(null, 'Failed to connect database.', err, 500)
+      errManager.handleError(null, 'Failed to connect database.', err, 500)
     } else {
       let sessions = db.collection('sessions')
       sessions.removeOne({'session.token': token})
@@ -20,11 +20,11 @@ function killSession (token) {
 function startSession (session) {
   MongoClient.connect(conf.db.mongoURI, function (err, db) {
     if (err) {
-      log.handleError(null, 'Failed to connect database.', err, 500)
+      errManager.handleError(null, 'Failed to connect database.', err, 500)
     } else {
       const sessions = db.collection('sessions')
       sessions.insertOne({ session: session }, function (err) {
-        if (err) log.handleError(null, 'Failed to connect database.', err, 500)
+        if (err) errManager.handleError(null, 'Failed to connect database.', err, 500)
       })
       db.close()
     }
@@ -33,12 +33,12 @@ function startSession (session) {
 function getIdbyToken (token, callback) {
   MongoClient.connect(conf.db.mongoURI, function (err, db) {
     if (err) {
-      log.handleError(null, 'Failed to connect database.', err, 500)
+      errManager.handleError(null, 'Failed to connect database.', err, 500)
     } else {
       const sessions = db.collection('sessions')
       sessions.findOne({'session.token': token}, function (err, session) {
         if (err) {
-          log.handleError(null, 'Failed to connect database.', err, 500)
+          errManager.handleError(null, 'Failed to connect database.', err, 500)
         } else {
           callback(session.session.id)
         }
@@ -50,12 +50,12 @@ function getIdbyToken (token, callback) {
 function login (res, username, password, callback) {
   MongoClient.connect(conf.db.mongoURI, function (err, db) {
     if (err) {
-      log.handleError(res, 'Failed to connect database.', err.message, 500)
+      errManager.handleError(res, 'Failed to connect database.', err.message, 500)
     } else {
       let users = db.collection('users')
       users.findOne({ 'mail': username }, function (err, user) {
         if (err) {
-          log.handleError(res, 'Failed to connect database.', err.message, 500)
+          errManager.handleError(res, 'Failed to connect database.', err.message, 500)
         } else {
           if (!user) {
             callback({
@@ -92,7 +92,7 @@ function login (res, username, password, callback) {
               id: user._id,
               expire: sessionExpire
             })
-            log.handleConsole('users', 'Logged. (' + user.pseudo + ')')
+            errManager.handleConsole('users', 'Logged. (' + user.pseudo + ')')
             return startSession(authObj)
           }
         }
@@ -103,7 +103,7 @@ function login (res, username, password, callback) {
 }
 function logout (token) {
   killSession(token)
-  log.handleConsole('users', 'Logout (' + token + ')')
+  errManager.handleConsole('users', 'Logout (' + token + ')')
 }
 function killOldSessionDeamon (freq) {
   let freqControl = freq
@@ -111,19 +111,19 @@ function killOldSessionDeamon (freq) {
   if (freqControl == null) {
     freqControl = FREQ_SESSION_CONTROL
   }
-  log.handleConsole('SERVER', 'KillOldSessions process have been launch. Operations every ' + (freqControl / 1000) + 's.')
+  errManager.handleConsole('SERVER', 'KillOldSessions process have been launch. Operations every ' + (freqControl / 1000) + 's.')
   setInterval(function () {
-    log.handleConsole('SERVER', 'Clean session in progress...')
+    errManager.handleConsole('SERVER', 'Clean session in progress...')
     MongoClient.connect(conf.db.mongoURI, function (err, db) {
       if (err) {
-        log.handleError(null, 'Failed to connect database.', err.message, 500)
+        errManager.handleError(null, 'Failed to connect database.', err.message, 500)
       } else {
         let sessions = db.collection('sessions')
         let date = tools.newTimestamp()
 
         sessions.find().toArray(function (err, sessions) {
           if (err) {
-            log.handleError(null, 'Failed to connect database.', err.message, 500)
+            errManager.handleError(null, 'Failed to connect database.', err.message, 500)
           } else {
             let oldSessions = []
 
@@ -138,7 +138,7 @@ function killOldSessionDeamon (freq) {
                 for (i; i < oldSessions.length; i++) {
                   killSession(oldSessions[i])
                 }
-                log.handleConsole('SERVER', i + ' sessions have been closed.')
+                errManager.handleConsole('SERVER', i + ' sessions have been closed.')
               }
             )()
           }
@@ -152,7 +152,7 @@ function auth (res, id, token) {
   return new Promise(function (resolve, reject) {
     MongoClient.connect(conf.db.mongoURI, function (err, db) {
       if (err) {
-        log.handleError(res, 'Failed to connect database.', err.message, 500)
+        errManager.handleError(res, 'Failed to connect database.', err.message, 500)
         reject(err)
       } else {
         const sessions = db.collection('sessions')

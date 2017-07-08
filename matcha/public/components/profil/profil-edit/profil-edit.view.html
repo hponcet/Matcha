@@ -13,12 +13,12 @@
 
         <select ng-model="user.city" ng-disabled="!user.dptNb" ng-change="getPCode()">
             <option value="" selected disabled>Ville</option>
-            <option ng-repeat="city in cities">{{city}}</option>
+            <option ng-repeat="city in cities track by $index">{{city}}</option>
         </select></br>
 
         <select ng-model="user.pcode" ng-disabled="!user.city">
             <option value="" selected disabled>Code Postal</option>
-            <option ng-repeat="pcode in pcodes track by $id">{{pcode}}</option>
+            <option ng-repeat="pcode in pcodes | orderBy:'pcode'">{{ pcode }}</option>
         </select></br>
 
         <select ng-model="user.sexOrientation">

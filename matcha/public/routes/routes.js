@@ -1,14 +1,15 @@
 export default routes
 
-const auth = (authService) => {
-  return authService.auth()
-}
-const getCurrentUser = (authService) => {
-  return authService.getCurrentUser()
-}
-
 routes.$inject = ['$routeProvider', '$locationProvider']
 function routes ($routeProvider, $locationProvider) {
+  const auth = (authService) => {
+    return authService.auth()
+  }
+
+  const getCurrentUser = (authService) => {
+    return authService.getCurrentUser()
+  }
+
   $locationProvider.html5Mode(true)
   $routeProvider
   .when('/', {
@@ -27,16 +28,7 @@ function routes ($routeProvider, $locationProvider) {
   })
   .when('/login', {
     templateUrl: '../components/login/login.view.html',
-    controller: 'loginController',
-    resolve: {
-      'auth': (authService, $location) => {
-        authService.auth().then((res) => {
-          if (res) {
-            $location.path('/home')
-          }
-        })
-      }
-    }
+    controller: 'loginController'
   })
   .when('/logout', {
     templateUrl: '../components/logout/logout.view.html',
@@ -46,10 +38,19 @@ function routes ($routeProvider, $locationProvider) {
     templateUrl: '../components/home/home.view.html',
     controller: 'homeController',
     resolve: {
-      'auth': auth
+      'auth': auth,
+      'currentUser': getCurrentUser
     }
   })
   .when('/profil', {
+    templateUrl: '../components/profil/profil.view.html',
+    controller: 'profilController',
+    resolve: {
+      'auth': auth,
+      'currentUser': getCurrentUser
+    }
+  })
+  .when('/profil/:id', {
     templateUrl: '../components/profil/profil.view.html',
     controller: 'profilController',
     resolve: {

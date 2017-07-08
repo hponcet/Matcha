@@ -37,7 +37,6 @@ function getUserById (res, origId, callback) {
     })
   } else {
     MongoClient.connect(conf.db.mongoURI, function (err, db) {
-      // Check url integrity
       if (err) {
         errManager.handleError(res, 'Failed to find user.', err.message, 404)
       } else {
@@ -93,6 +92,8 @@ function insertUser (res, dataUser) {
         dataUser.loc[1] = parseFloat(loc[1])
       }
       dataUser.geoData = data
+      dataUser.score = 0
+      dataUser.matchs = 0
       MongoClient.connect(conf.db.mongoURI, (err, db) => {
         if (err) {
           errManager.handleError(res, err.message, 'Failed to connect database.')
