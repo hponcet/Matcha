@@ -1,10 +1,12 @@
 const request = require('request')
 const genToken = require('rand-token')
-const session = require('./tools/db.session-manager.js')
-const account = require('./tools/db.account-manager.js')
-const location = require('./tools/db.city-manager.js')
-const mail = require('./tools/mail-manager.js')
-const tools = require('./tools/tools-manager.js')
+const Crypto = require('crypto-js//hmac-sha512')
+const config = require('./config')
+const session = require('./services/session.service')
+const account = require('./services/account.service')
+const location = require('./services/location.service')
+const mailService = require('./services/mail.service')
+const tools = require('./services/tools.service')
 
 const express = require('express')
 const router = express.Router()
@@ -25,32 +27,6 @@ router
     res.json(result)
   })
 })
-.get('/ipinfo', (req, res) => {
-  let ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || req.connection.remoteAddress
-  if (ip === '::1' || ip === '127.0.0.1') {
-    ip = '93.26.180.80'
-  }
-  const url = 'https://ipinfo.io/' + ip + '/json'
-  request(url, { json: true }, (err, result, data) => {
-    if (err) {
-      console.log(err)
-    } else {
-      res.json(data)
-    }
-  })
-})
-.get('/ipinfo/:ip', (req, res) => {
-  var ip = req.params.ip
-  const url = 'https://ipinfo.io/' + ip + '/json'
-  request(url, { json: true }, (err, result, data) => {
-    if (err) {
-      console.log(err)
-    } else {
-      console.log(data)
-      res.json(data)
-    }
-  })
-})
 .get('/check/mail/:mail', (req, res) => {
   account.checkMail(res, req.params.mail, function (result) {
     res.json(result)
@@ -65,16 +41,14 @@ router
   var data = tools.atob(req.params.token)
   var mail = data.split('|')[0]
   var token = data.split('|')[1]
-
-  console.log('yolo')
   switch (req.params.action) {
     case 'validate':
-      mail.validateMail(mail, token, function (data) {
+      mailService.validateMail(mail, token, function (data) {
         res.json(data)
       })
       break
     case 'error':
-      mail.errorMail(mail, token)
+      mailService.errorMail(mail, token)
       break
     default:
       break
@@ -84,10 +58,10 @@ router
   let mail = tools.atob(req.params.token)
   switch (req.params.action) {
     case 'resend':
-      mail.reSendMail(mail, (objUser) => {
+      mailService.reSendMail(mail, (objUser) => {
         if (objUser !== null) {
           console.log(objUser)
-          mail.sendMail(res, objUser)
+          mailService.sendMail(res, objUser)
         }
       })
       break
@@ -102,25 +76,52 @@ router
     ip = '93.26.180.80'
   }
   req.body.ip = ip
+  req.body.password = Crypto(req.body.password, config.db.PSW_SALT).toString()
   req.body.validation = {
     'link': tools.btoa(req.body.mail + '|' + token),
     'token': token,
     'account': false
   }
-  mail.sendMail(res, req.body)
   account.insertUser(res, req.body)
+  mailService.sendMail(res, req.body)
 })
 .post('/login', (req, res) => {
   const username = req.body.username
-  const password = req.body.password
+  const password = Crypto(req.body.password, config.db.PSW_SALT).toString()
   session.login(res, username, password, function (auth) {
     res.json(auth)
-  }, session.startSession)
+  })
 })
 .post('/logout', (req, res) => {
   let token = req.body.token
   session.logout(token)
   res.json({message: 'Session closed.'})
+})
+.post('/auth', (req, res) => {
+  const token = req.body.token
+  session.auth(token)
+    .then((authorized) => {
+      if (authorized) {
+        res.status(200).send({
+          status: '200',
+          message: 'OK',
+          auth: true
+        })
+      } else {
+        res.send({
+          status: '401',
+          message: 'Unauthorized',
+          auth: false
+        })
+      }
+    })
+    .catch(() => {
+      res.status(500).send({
+        status: '500',
+        message: 'Internal error',
+        auth: false
+      })
+    })
 })
 .post('/profil', (req, res) => {
   const token = req.body.token

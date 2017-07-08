@@ -1,10 +1,17 @@
 const MongoClient = require('mongodb').MongoClient
 const ObjectID    = require('mongodb').ObjectID
-const conf        = require('../server.conf.js')
+const conf        = require('../config.js')
 const async        = require('async')
-const session = require('./db.session-manager')
-const errManager  = require('./error-manager')
+const session = require('./session.service')
+const errManager  = require('./log.service')
 const request = require('request-promise')
+const userInfoShared = {
+  _id: 0,
+  geoData: 0,
+  ip: 0,
+  validation: 0,
+  password: 0
+}
 
 function validateObjectID (id) {
   const validate = ObjectID.isValid(id)
@@ -16,7 +23,9 @@ function validateObjectID (id) {
 }
 
 function getUserByToken (res, token, callback) {
-  session.getIdbyToken(token, (id) => { getUserById(res, id, callback) })
+  session.getIdbyToken(token, (id) => {
+    getUserById(res, id, callback)
+  })
 }
 function getUserById (res, origId, callback) {
   const id = validateObjectID(origId)
@@ -33,7 +42,7 @@ function getUserById (res, origId, callback) {
         errManager.handleError(res, 'Failed to find user.', err.message, 404)
       } else {
         const users = db.collection('users')
-        users.findOne({ '_id': id }, function (err, user) {
+        users.findOne({ '_id': id }, userInfoShared, function (err, user) {
           if (err) {
             errManager.handleError(res, 'Failed to find user.', err.message, 404)
             callback({

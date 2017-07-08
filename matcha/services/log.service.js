@@ -1,4 +1,4 @@
-const tools = require('./tools-manager')
+const tools = require('./tools.service')
 
 function send(type, message) {
   const date = tools.getDate()

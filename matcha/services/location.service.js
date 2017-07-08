@@ -1,6 +1,6 @@
 var MongoClient = require('mongodb').MongoClient;
-var conf        = require('../server.conf.js');
-var errManager  = require('./error-manager');
+var conf        = require('../config.js');
+var errManager  = require('./log.service');
 
 exports.getDpts = function (res, callback) {
     MongoClient.connect(conf.db.mongoURI, function(err, db)

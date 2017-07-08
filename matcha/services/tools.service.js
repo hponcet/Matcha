@@ -7,7 +7,24 @@ exports.newTimestamp = function () {
   return Math.round(new Date().getTime() / 1000)
 }
 
-exports.getDate = () => {
+exports.secToTime = function (sec) {
+  const secNum = parseInt(sec, 10) // don't forget the second param
+  let hours = Math.floor(secNum / 3600)
+  let minutes = Math.floor((secNum - (hours * 3600)) / 60)
+  let seconds = secNum - (hours * 3600) - (minutes * 60)
+  let day = ''
+
+  if (hours > 23) {
+    day = hours / 24 + 'd '
+    hours = hours % 24
+  }
+  if (hours < 10) { hours = '0' + hours }
+  if (minutes < 10) { minutes = '0' + minutes }
+  if (seconds < 10) { seconds = '0' + seconds }
+  return day + hours + 'h ' + minutes + 'm ' + seconds + 's'
+}
+
+exports.getDate = (time) => {
   const d = new Date()
   let day = d.getDate()
   if (day.length === 1) {

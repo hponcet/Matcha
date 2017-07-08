@@ -5,7 +5,7 @@
         <legend>Profil</legend>
         <input type="text" class="form-control" name="firstname" placeholder="Prénom" ng-model="user.fn"></br>
         <input type="text" class="form-control" name="secondname" placeholder="Nom" ng-model="user.sn"></br>
-
+        <input type="text" class="form-control" name="adress" placeholder="Addresse" ng-model="user.address"></br>
         <select ng-model="user.dptNb" ng-change="getCities()">
             <option value="" selected disabled>Départements</option>
             <option ng-repeat="dpt in dpts | orderBy:'number'" value="{{dpt.number}}">{{dpt.number}} - {{dpt.name}}</option>
@@ -18,7 +18,7 @@
 
         <select ng-model="user.pcode" ng-disabled="!user.city">
             <option value="" selected disabled>Code Postal</option>
-            <option ng-repeat="pcode in pcodes | orderBy:'pcode'">{{pcode}}</option>
+            <option ng-repeat="pcode in pcodes track by $id">{{pcode}}</option>
         </select></br>
 
         <select ng-model="user.sexOrientation">

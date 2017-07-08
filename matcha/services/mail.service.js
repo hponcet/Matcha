@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer')
 const MongoClient = require('mongodb').MongoClient
-const conf = require('../server.conf.js')
-const errManager = require('./error-manager')
+const conf = require('../config.js')
+const errManager = require('./log.service')
 
 exports.sendMail = function (res, userObj) {
   let transporter = nodemailer.createTransport({

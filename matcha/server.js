@@ -1,9 +1,9 @@
-const	express = require("express")
+const express = require('express')
 const path = require('path')
-const bodyParser = require("body-parser")
-const conf = require("./server.conf.js")
-const	sessManager	= require('./tools/db.session-manager.js')
-const	errManager = require("./tools/error-manager.js")
+const bodyParser = require('body-parser')
+const conf = require('./config.js')
+const	session	= require('./services/session.service.js')
+const	errManager = require("./services/log.service.js")
 const app = express()
 const routes = require('./routes')
 
@@ -22,7 +22,7 @@ app.all('/dist/app.bundle.js', function (req, res, next) {
 // Connect to the database before starting the application server.
 
 let server = app.listen(conf.server['serverPort'], () => {
-  let port = server.address().port
+  const port = server.address().port
   errManager.handleConsole('server', 'App now running on port ' + port)
-  sessManager.killOldSessionDeamon(conf.server.SESSION_TIME) // Deamon - Close old sessions every 24h
+  session.killOldSessionDeamon() // Deamon - Close old sessions every 24h
 })

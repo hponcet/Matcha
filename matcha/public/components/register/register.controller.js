@@ -1,7 +1,5 @@
-export default registerController
-
-registerController.$inject = ['$scope', '$http', '$location', 'RegisterService']
-function registerController ($scope, $http, $location, RegisterService) {
+registerController.$inject = ['$scope', '$http', '$location', 'RegisterService', 'authService']
+function registerController ($scope, $http, $location, RegisterService, authService) {
   $scope.registerView = [true, false]
   $scope.master = {
     'sex': 'H'
@@ -54,13 +52,15 @@ function registerController ($scope, $http, $location, RegisterService) {
     if ($scope.user.mail !== $scope.emailConfirm) {
       $scope.emailConfirm = ''
     } else if (!$scope.pseudoValidity && !$scope.emailValidity) {
-      $http.post('/api/register', $scope.user)
+      let user = JSON.parse(JSON.stringify($scope.user))
+      user.password = authService.hash($scope.user.password)
+      $http.post('/api/register', user)
       .then($scope.registerView = [false, true, true])
     }
   }
   $scope.reSend = () => {
-    console.log('/api/mail/resend/' + btoa($scope.user.mail))
     $http.post('/api/mail/resend/' + btoa($scope.user.mail))
     .then($scope.registerView = [false, true, false])
   }
 }
+export default registerController

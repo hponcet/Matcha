@@ -1,10 +1,14 @@
 import angular from 'angular'
+import Crypto from 'crypto-js'
 export default angular
 .module('auth.service', [])
 .service('authService', authService)
 
 authService.$inject = ['$http', '$cookies', '$location', '$rootScope', '$q']
 function authService ($http, $cookies, $location, $rootScope, $q) {
+  function hash (password) {
+    return Crypto.SHA512(password).toString()
+  }
 
   function resetSession () {
     const session =
@@ -30,12 +34,20 @@ function authService ($http, $cookies, $location, $rootScope, $q) {
     return $q((resolve, reject) => {
       const session = $cookies.getObject('session')
       if (session && session.authentificated && session.token) {
-        //AJOUTER UNE FONCTION POUR CHECK COTER SERVER SI LA SESSION EST ACTICVE
-        resolve()
+        $http.post('/api/auth', {token: session.token})
+          .then((res) => {
+            if (res.data.auth) {
+              resolve()
+            } else {
+              resetSession()
+              $location.path('/login')
+              console.log('401: Authentification failed.')
+            }
+          })
       } else {
         resetSession()
         $location.path('/login')
-        console.log('[Authentifaction] Failed.')
+        console.log('401: Authentification failed.')
       }
     })
   }
@@ -56,6 +68,7 @@ function authService ($http, $cookies, $location, $rootScope, $q) {
   }
 
   return {
+    hash: hash,
     auth: auth,
     getSession: getSession,
     getCurrentUser: getCurrentUser
