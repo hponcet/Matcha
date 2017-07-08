@@ -4,6 +4,6 @@ function profilEditDirective () {
   return {
     restrict: 'EA',
     replace: true,
-    templateUrl: './components/profil-edit/profil-edit.view.html'
+    templateUrl: './components/profil/profil-edit/profil-edit.view.html'
   }
 }

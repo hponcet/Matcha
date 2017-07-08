@@ -28,9 +28,29 @@ function routes ($routeProvider, $locationProvider) {
   })
   .when('/home', {
     templateUrl: '../components/home/home.view.html',
-    controller: 'homeController'
+    controller: 'homeController',
+    resolve: {
+      'auth': (authService) => {
+        return authService.auth()
+      },
+      'currentUser': (authService) => {
+        return authService.getCurrentUser()
+      }
+    }
   })
   .when('/profil', {
+    templateUrl: '../components/profil/profil.view.html',
+    controller: 'profilController',
+    resolve: {
+      'auth': (authService) => {
+        return authService.auth()
+      },
+      'currentUser': (authService) => {
+        return authService.getCurrentUser()
+      }
+    }
+  })
+  .when('/profil/:id', {
     templateUrl: '../components/profil/profil.view.html',
     controller: 'profilController',
     resolve: {

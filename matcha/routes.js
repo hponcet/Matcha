@@ -20,8 +20,9 @@ router
     res.json(result)
   })
 })
-.get('/api/citydb/:dptnb/:cityName', function (req, res) {
+.get('/citydb/:dptnb/:cityName', function (req, res) {
   location.getPCode(res, req.params.dptnb, req.params.cityName, function (result) {
+    console.log('result ', result)
     res.json(result)
   })
 })
@@ -46,7 +47,6 @@ router
     if (err) {
       console.log(err)
     } else {
-      console.log(data)
       res.json(data)
     }
   })
@@ -66,7 +66,6 @@ router
   var mail = data.split('|')[0]
   var token = data.split('|')[1]
 
-  console.log('yolo')
   switch (req.params.action) {
     case 'validate':
       mail.validateMail(mail, token, function (data) {
@@ -86,7 +85,6 @@ router
     case 'resend':
       mail.reSendMail(mail, (objUser) => {
         if (objUser !== null) {
-          console.log(objUser)
           mail.sendMail(res, objUser)
         }
       })
@@ -94,6 +92,16 @@ router
     default:
       break
   }
+})
+.post('/auth', (req, res) => {
+  session.auth(res, req.body.id, req.body.token)
+  .then(() => {
+    res.json(true)
+  })
+  .catch((err) => {
+    console.log(err)
+    res.json(false)
+  })
 })
 .post('/register', (req, res) => {
   const token = genToken.generate(16)
@@ -115,7 +123,7 @@ router
   const password = req.body.password
   session.login(res, username, password, function (auth) {
     res.json(auth)
-  }, session.startSession)
+  })
 })
 .post('/logout', (req, res) => {
   let token = req.body.token

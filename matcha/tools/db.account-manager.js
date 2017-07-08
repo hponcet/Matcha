@@ -84,6 +84,8 @@ function insertUser (res, dataUser) {
         dataUser.loc[1] = parseFloat(loc[1])
       }
       dataUser.geoData = data
+      dataUser.score = 0
+      dataUser.matchs = 0
       MongoClient.connect(conf.db.mongoURI, (err, db) => {
         if (err) {
           errManager.handleError(res, err.message, 'Failed to connect database.')
