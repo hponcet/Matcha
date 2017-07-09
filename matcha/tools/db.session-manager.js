@@ -17,6 +17,7 @@ function killSession (token) {
     }
   })
 }
+
 function startSession (session) {
   MongoClient.connect(conf.db.mongoURI, function (err, db) {
     if (err) {
@@ -30,6 +31,7 @@ function startSession (session) {
     }
   })
 }
+
 function getIdbyToken (token, callback) {
   MongoClient.connect(conf.db.mongoURI, function (err, db) {
     if (err) {
@@ -47,6 +49,7 @@ function getIdbyToken (token, callback) {
     }
   })
 }
+
 function login (res, username, password, callback) {
   MongoClient.connect(conf.db.mongoURI, function (err, db) {
     if (err) {
@@ -101,10 +104,12 @@ function login (res, username, password, callback) {
     }
   })
 }
+
 function logout (token) {
   killSession(token)
   errManager.handleConsole('users', 'Logout (' + token + ')')
 }
+
 function killOldSessionDeamon (freq) {
   let freqControl = freq
 
@@ -148,6 +153,7 @@ function killOldSessionDeamon (freq) {
     })
   }, freqControl)
 }
+
 function auth (res, id, token) {
   return new Promise(function (resolve, reject) {
     MongoClient.connect(conf.db.mongoURI, function (err, db) {

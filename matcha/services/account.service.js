@@ -3,8 +3,9 @@ const ObjectID    = require('mongodb').ObjectID
 const conf        = require('../config.js')
 const async        = require('async')
 const session = require('./session.service')
-const errManager  = require('./log.service')
+const log  = require('./log.service')
 const request = require('request-promise')
+const tools = require('./tools.service')
 const userInfoShared = {
   _id: 0,
   geoData: 0,
@@ -30,7 +31,7 @@ function getUserByToken (res, token, callback) {
 function getUserById (res, origId, callback) {
   const id = validateObjectID(origId)
   if (!id) {
-    errManager.handleError(null, '[WARNING]', 'Trying to falsify ObjectID.', 304)
+    log.handleError(null, '[WARNING]', 'Trying to falsify ObjectID.', 304)
     callback({
       status: '304',
       message: '[WARNING] Trying to falsify IDs.'
@@ -38,12 +39,12 @@ function getUserById (res, origId, callback) {
   } else {
     MongoClient.connect(conf.db.mongoURI, function (err, db) {
       if (err) {
-        errManager.handleError(res, 'Failed to find user.', err.message, 404)
+        log.handleError(res, 'Failed to find user.', err.message, 404)
       } else {
         const users = db.collection('users')
         users.findOne({ '_id': id }, userInfoShared, function (err, user) {
           if (err) {
-            errManager.handleError(res, 'Failed to find user.', err.message, 404)
+            log.handleError(res, 'Failed to find user.', err.message, 404)
             callback({
               status: '401',
               data: null
@@ -60,12 +61,12 @@ function getUserById (res, origId, callback) {
 function getUsers (res, callback) {
   MongoClient.connect(conf.db.mongoURI, function (err, db) {
     if (err) {
-      errManager.handleError(res, 'Failed to connect db.', err.message)
+      log.handleError(res, 'Failed to connect db.', err.message)
     } else {
       var users = db.collection('users')
       users.find().toArray(function (err, result) {
         if (err) {
-          errManager.handleError(res, 'Failed to connect db.', err.message)
+          log.handleError(res, 'Failed to connect db.', err.message)
         } else {
           callback(result)
         }
@@ -93,12 +94,12 @@ function insertUser (res, dataUser) {
       dataUser.matchs = 0
       MongoClient.connect(conf.db.mongoURI, (err, db) => {
         if (err) {
-          errManager.handleError(res, err.message, 'Failed to connect database.')
+          log.handleError(res, err.message, 'Failed to connect database.')
         } else {
           var users = db.collection('users')
           users.insertOne(dataUser, (err, doc) => {
             if (err) {
-              errManager.handleError(res, err.message, 'Failed to insert user.')
+              log.handleError(res, err.message, 'Failed to insert user.')
             } else {
               res.status(201).json(doc.ops[0])
             }
@@ -115,13 +116,13 @@ function insertUser (res, dataUser) {
 function checkMail (res, mail, callback) {
   MongoClient.connect(conf.db.mongoURI, (err, db) => {
     if (err) {
-      errManager.handleError(res, err.message, 'Failed to connect database.')
+      log.handleError(res, err.message, 'Failed to connect database.')
     } else {
       const users = db.collection('users')
       const regMail = '^' + mail + '$'
       users.findOne({'mail': {'$regex': regMail, $options: 'i'}}, (err, ret) => {
         if (err) {
-          errManager.handleError(res, err.message, 'Failed to connect database.')
+          log.handleError(res, err.message, 'Failed to connect database.')
         } else {
           if (ret == null) {
             callback(false)
@@ -138,26 +139,40 @@ function checkPseudo (res, pseudo, callback) {
   MongoClient.connect(conf.db.mongoURI, function(err, db)
   {
     if (err) {
-      errManager.handleError(res, err.message, "Failed to connect database.");
+      log.handleError(res, err.message, "Failed to connect database.");
     } else {
-      var users = db.collection('users');
-      var regPseudo = '^'+pseudo+'$';
-      users.findOne({"pseudo": {'$regex': regPseudo,$options:'i'}}, function(err, ret) {
-        if (ret == null)
-        callback(false);
-        else
-        callback(true);
-      });
-      db.close();
+      var users = db.collection('users')
+      var regPseudo = '^'+pseudo+'$'
+      users.findOne({'pseudo': {'$regex': regPseudo,$options: 'i' }}, (err, ret) => {
+        if (ret == null) callback(false)
+        else callback(true)
+      })
+      db.close()
     }
-  });
-};
+  })
+}
+function getCoord (id, callback) {
+  MongoClient.connect(conf.db.mongoURI, (err, db) => {
+    if (err) log.handleError(null, err.message, 'Failed to connect database.')
+    else {
+      const users = db.collection('users')
+      users.find({ _id: tools.validateObjectID(id) }, { loc: 1 }).toArray((err, coord) => {
+        if (err) log.handleError(null, 'Failed to connect database.', err, 500)
+        else {
+          callback(coord[0].loc)
+        }
+      })
+      db.close()
+    }
+  })
+}
 
 module.exports = {
-  getUserByToken: getUserByToken,
-  getUserById: getUserById,
-  insertUser: insertUser,
-  getUsers: getUsers,
-  checkMail: checkMail,
-  checkPseudo: checkPseudo
+  getUserByToken,
+  getUserById,
+  insertUser,
+  getUsers,
+  checkMail,
+  checkPseudo,
+  getCoord
 }

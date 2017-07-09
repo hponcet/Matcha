@@ -7,6 +7,8 @@ const account = require('./services/account.service')
 const location = require('./services/location.service')
 const mailService = require('./services/mail.service')
 const tools = require('./services/tools.service')
+const search = require('./services/search.service')
+const log = require('./services/log.service')
 
 const express = require('express')
 const router = express.Router()
@@ -89,6 +91,20 @@ router
       break
   }
 })
+.post('/search/km', (req, res) => {
+  session.auth(res, req.body.id, req.body.token)
+  .then(() => {
+    account.getCoord(req.body.id, (coord) => {
+      search.findByKm(coord, req.body.distance, (users) => {
+        res.json(users)
+      })
+    })
+  })
+  .catch((err) => {
+    console.log(err)
+    res.json(null)
+  })
+})
 .post('/auth', (req, res) => {
   session.auth(res, req.body.id, req.body.token)
   .then(() => {
@@ -145,5 +161,6 @@ router
     res.json(null)
   })
 })
+
 
 module.exports = router

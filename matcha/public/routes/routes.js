@@ -36,10 +36,20 @@ function routes ($routeProvider, $locationProvider) {
   })
   .when('/home', {
     templateUrl: '../components/home/home.view.html',
-    controller: 'homeController',
+    controller: 'FinderController',
     resolve: {
       'auth': auth,
       'currentUser': getCurrentUser
+    }
+  })
+  .when('/finder', {
+    templateUrl: '../components/finder/finder.view.html',
+    controller: 'FinderController',
+    resolve: {
+      'auth': auth,
+      'currentUser': (authService) => {
+        return authService.getCurrentUser()
+      }
     }
   })
   .when('/profil', {

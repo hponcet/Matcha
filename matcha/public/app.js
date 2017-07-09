@@ -13,6 +13,7 @@ import './components/part/header/header.index'
 import './components/login/login.index'
 import './components/home/home.index'
 import './components/logout/logout.index'
+import './components/finder/finder.index'
 import './components/profil/profil.index'
 
 import './services/auth.service'
@@ -29,7 +30,8 @@ const dependencies = [
   'home.module',
   'profil.module',
   'auth.service',
-  'validateAccount.module'
+  'validateAccount.module',
+  'finder.module'
 ]
 
 angular
