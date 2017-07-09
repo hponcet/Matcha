@@ -155,10 +155,11 @@ function auth (res, id, token) {
         log.handleError(res, 'Failed to connect database.', err.message, 500)
         reject(err)
       } else {
+        const objId = tools.validateObjectID(id)
         const sessions = db.collection('sessions')
-        sessions.findOne({ 'session.id': id, 'session.token': token }, function (err, session) {
+        sessions.findOne({ 'session.id': objId, 'session.token': token }, function (err, session) {
           if (!session || err) {
-            reject(err)
+            reject()
           } else {
             resolve()
           }

@@ -24,7 +24,6 @@ router
 })
 .get('/citydb/:dptnb/:cityName', function (req, res) {
   location.getPCode(res, req.params.dptnb, req.params.cityName, function (result) {
-    console.log('result ', result)
     res.json(result)
   })
 })
@@ -132,6 +131,18 @@ router
   const token = req.body.token
   account.getUserByToken(res, token, (user) => {
     res.json(user)
+  })
+})
+.post('/users/id', (req, res) => {
+  session.auth(res, req.body.id, req.body.token)
+  .then(() => {
+    account.getUserById(res, req.body.user, (user) => {
+      res.json(user)
+    })
+  })
+  .catch((err) => {
+    console.log(err)
+    res.json(null)
   })
 })
 

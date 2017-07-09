@@ -1,10 +1,20 @@
 // btoa and atob functions for NodeJs server
+const ObjectID = require('mongodb').ObjectID
 exports.btoa = require('btoa')
 exports.atob = require('atob')
 
 // return a timestamp
 exports.newTimestamp = function () {
   return Math.round(new Date().getTime() / 1000)
+}
+
+exports.validateObjectID = (id) => {
+  const validate = ObjectID.isValid(id)
+  if (validate) {
+    return new ObjectID(id)
+  } else {
+    return false
+  }
 }
 
 exports.secToTime = function (sec) {

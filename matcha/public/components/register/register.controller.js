@@ -1,6 +1,6 @@
 registerController.$inject = ['$scope', '$http', '$location', 'RegisterService', 'authService']
 function registerController ($scope, $http, $location, RegisterService, authService) {
-  $scope.registerView = [true, false]
+  $scope.registerView = [true, false, false]
   $scope.master = {
     'sex': 'H'
   }
@@ -60,9 +60,7 @@ function registerController ($scope, $http, $location, RegisterService, authServ
   }
   $scope.reSend = () => {
     $http.get('/api/mail/resend/' + btoa($scope.user.mail))
-    .then(() => {
-      $scope.registerView = [false, true, false]
-    })
+    $scope.registerView = [false, true, false]
   }
 }
 export default registerController

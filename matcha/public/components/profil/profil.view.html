@@ -1,1 +1,13 @@
-<img >{{ user }}</img>
+
+<div>
+  <h2>{{user.pseudo}}</h2>
+  <img ng-src='{{user.profilPic}}'/>
+  <h4>Description:</h4>
+  <article>
+    {{user.desc}}
+  </article>
+  <h4>Biographie:</h4>
+  <article>
+    {{user.bio}}
+  </article>
+</div>

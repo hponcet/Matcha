@@ -49,10 +49,7 @@ function getUserById (res, origId, callback) {
               data: null
             })
           } else {
-            callback({
-              status: '200',
-              data: user
-            })
+            callback(user)
           }
         })
         db.close()

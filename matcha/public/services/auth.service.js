@@ -51,7 +51,7 @@ function authService ($http, $cookies, $location, $rootScope, $q) {
       if (session && session.authentificated && session.token) {
         $http.post('/api/profil', { token: session.token })
           .then((res) => {
-            resolve(res.data.data)
+            resolve(res.data)
           })
       } else {
         resetSession()

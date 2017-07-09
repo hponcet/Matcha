@@ -1,7 +1,7 @@
 <div class="container" ng-controller="registerController">
   <div ng-show="registerView[0]">
     <!-- Form container -->
-    <form name="regForm" class="form-register" ng-submit="register()">
+    <form name="regForm" class="form-register">
         <h2 class="form-signin-heading">Créer un compte</h2>
 
         <!-- Connexion ID -->
@@ -54,7 +54,7 @@
         <!-- Buttons -->
         <div class="regBtn">
             <button type="button" class="title" ng-click="toggle()">Editer mon profil</button>
-            <button type="submit" class="btn reg-btn">S'enregistrer</button>
+            <button type="button" class="btn reg-btn" ng-click="register()">S'enregistrer</button>
             <button type="reset" class="btn reg-btn" ng-click="reset()">Remettre a zéro</button>
             <label><input type="checkbox" ng-model="debug">Debug JSON</input></label>
         </div>
