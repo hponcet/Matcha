@@ -2,3 +2,4 @@
 .DS_Store
 /matcha/db
 package-lock.json
+/matcha/public/dist/app.bundle.js
