@@ -1,3 +1,29 @@
-<ul ng-controller="HeaderController">
- <ng-bind-html ng-bind-html="menu"></ng-bind-html>
-</ul>
+<div class="menu-container">
+  <ul>
+    <div ng-show="!authentified">
+      <li>
+        <a href="/login">Se connécter</a>
+      </li>
+      <li>
+        <a href="/register">Créer un compte</a>
+      </li>
+    </div>
+    <div ng-show="authentified">
+      <li>
+        <a href="/finder">Recherche</a>
+      </li>
+      <li>
+        <a href="/chat">Chat</a>
+      </li>
+      <li>
+        <a href="/matchs">Mes matchs</a>
+      </li>
+      <li>
+        <a href="/profil">Compte</a>
+      </li>
+      <li>
+        <a href="/logout">Déconnexion</a>
+      </li>
+    </div>
+  </ul>
+</div>

@@ -5,10 +5,10 @@ const config = require('./config')
 const session = require('./services/session.service')
 const account = require('./services/account.service')
 const location = require('./services/location.service')
+const tags = require('./services/tags.service')
 const mailService = require('./services/mail.service')
 const tools = require('./services/tools.service')
 const search = require('./services/search.service')
-const log = require('./services/log.service')
 
 const express = require('express')
 const router = express.Router()
@@ -91,6 +91,9 @@ router
       break
   }
 })
+.get('/tags', (req, res) => {
+  tags.getAllTags((tags) => { res.json(tags) })
+})
 .post('/search/km', (req, res) => {
   session.auth(res, req.body.id, req.body.token)
   .then(() => {
@@ -158,9 +161,17 @@ router
   })
   .catch((err) => {
     console.log(err)
-    res.json(null)
+    res.json({status: 'Auth error'})
   })
 })
-
+.post('/users/update', (req, res) => {
+  session.auth(res, req.body.id, req.body.token)
+  .then(() => {
+    account.updateUser(res, req.body.id, req.body.place, req.body.data)
+  })
+  .catch((err) => {
+    res.json({status: 'Auth error'})
+  })
+})
 
 module.exports = router

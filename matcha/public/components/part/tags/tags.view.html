@@ -1,0 +1,28 @@
+<form name="tags-form">
+  <div class="tags-container">
+    <div class="tags-selected"
+      ng-repeat="tag in user.tags track by $index">
+      {{tag.name}}
+      <img
+        class="tags-del-btn"
+        src="/img/cross.png"
+        ng-click="delTag($index)"/>
+    </div>
+    <input
+      type="text"
+      class="tags-input"
+      placeholder="Tags"
+      ng-model="searchTag"
+      ng-change="compTags(searchTag)"
+      key-enter="addNewTag(searchTag)">
+  </div>
+  <div>
+    <div ng-class="(propositions.length > 0) ? 'tags-propositions' : 'tags-propositions-none'">
+      <div class="tags-propositions-case"
+        ng-repeat="prop in propositions track by prop._id"
+        ng-click="addTag(prop)">
+        {{prop.name}}
+      </div>
+    </div>
+  </div>
+</form>

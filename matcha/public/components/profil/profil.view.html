@@ -1,13 +1,45 @@
+<div class="view">
+  <div class="view-container">
+    <div class="container-title">
+      <profil-pictures></profil-pictures>
+      <center><h2>{{user.pseudo}}</h2></center>
+    </div>
 
-<div>
-  <h2>{{user.pseudo}}</h2>
-  <img ng-src='{{user.profilPic}}'/>
-  <h4>Description:</h4>
-  <article>
-    {{user.desc}}
-  </article>
-  <h4>Biographie:</h4>
-  <article>
-    {{user.bio}}
-  </article>
+    <profil-section
+      title="Description"
+      item="user.desc"
+      type="textarea"
+      user="user"
+      place="desc"
+      editable="true">
+    </profil-section>
+
+    <profil-section
+      title="Biographie"
+      item="user.bio"
+      type="textarea"
+      user="user"
+      place="bio"
+      editable="true">
+    </profil-section>
+
+    <profil-section
+      title="Job"
+      item="user.job"
+      type="text"
+      user="user"
+      place="job"
+      editable="true">
+    </profil-section>
+
+    <profil-section
+      title="Tags"
+      item="user.tags"
+      type="tags"
+      user="user"
+      place="tags"
+      editable="true">
+    </profil-section>
+
+  </div>
 </div>

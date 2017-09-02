@@ -1,0 +1,38 @@
+<div
+  class="box-container"
+  ng-mouseover="showItem = true"
+  ng-mouseleave="showItem = false">
+  <div class="box-title">
+    {{title}}
+    <img src="/img/edit.png"
+      class="btn-edit"
+      ng-show="showItem && !showItemEdit && editable"
+      ng-click="profilEdit()"/>
+  </div>
+  <div class="box-content" ng-show="!showItemEdit && !tags">
+    {{item}}
+  </div>
+  <div class="box-content" ng-show="!showItemEdit && tags">
+    <div ng-repeat="tag in item track by $index" class="tags-selected">
+      {{tag.name}}
+    </div>
+  </div>
+  <div class="box-content" ng-show="showItemEdit">
+    <textarea
+      placeholder="Description"
+      ng-model="item"
+      ng-show="textarea"
+      class="profil-input">
+    </textarea>
+    <input
+      type="{{type}}"
+      placeholder="Description"
+      ng-model="item"
+      ng-show="text"
+      class="profil-input"
+    />
+    <tags ng-show="tags"></tags>
+    <img src="/img/edit-cancel.png" class="btn-edit" ng-click="updateCancel()"/>
+    <img src="/img/edit-valid.png" class="btn-edit" ng-click="updateProfil(place, item)"/>
+  </div>
+</div>

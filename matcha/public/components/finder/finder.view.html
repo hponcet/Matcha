@@ -1,1 +1,8 @@
-<p>{{ users }}</p>
+<link rel="stylesheet" href="https://openlayers.org/en/v4.2.0/css/ol.css" type="text/css">
+
+<p ng-repeat="user in users track by $index">{{user.fn}} {{user.sn}}
+  <span ng-bind="dist(currentUser.loc[0], currentUser.loc[1], user.loc[0], user.loc[1])"></span>
+  <br>
+  <br>
+</p>
+<div id="map" class="map" tabindex="0"></div>

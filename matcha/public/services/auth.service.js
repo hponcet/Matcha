@@ -7,7 +7,7 @@ export default angular
 authService.$inject = ['$http', '$cookies', '$location', '$rootScope', '$q']
 function authService ($http, $cookies, $location, $rootScope, $q) {
   const guest = {
-    authentificated: false,
+    authentified: false,
     pseudo: 'Guest',
     token: false
   }
@@ -33,7 +33,7 @@ function authService ($http, $cookies, $location, $rootScope, $q) {
   function auth () {
     return $q((resolve, reject) => {
       const session = $cookies.getObject('session')
-      if (session && session.authentificated && session.token) {
+      if (session && session.authentified && session.token) {
         $http.post('/api/auth', { id: session.id, token: session.token })
         .then((authentified) => {
           authentified ? resolve() : reject()
@@ -48,7 +48,7 @@ function authService ($http, $cookies, $location, $rootScope, $q) {
   function getCurrentUser () {
     return $q((resolve, reject) => {
       const session = $cookies.getObject('session')
-      if (session && session.authentificated && session.token) {
+      if (session && session.authentified && session.token) {
         $http.post('/api/profil', { token: session.token })
           .then((res) => {
             resolve(res.data)

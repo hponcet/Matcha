@@ -6,7 +6,7 @@ function loginController ($scope, $http, $cookies, $location, authService) {
     const username = $scope.log.username
     $http.post('/api/login', { password: password, username: username })
       .then(function (res) {
-        if (!res.data.authentificated) {
+        if (!res.data.authentified) {
           if (res.data.reason === 1) { // User not found
             $scope.errorMsg = 'L\'adresse e-mail fournit ne correspond a aucun compte.'
           } else if (res.data.reason === 2) { // Wrong password

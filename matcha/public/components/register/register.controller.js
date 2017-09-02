@@ -1,17 +1,14 @@
 registerController.$inject = ['$scope', '$http', '$location', 'RegisterService', 'authService']
 function registerController ($scope, $http, $location, RegisterService, authService) {
   $scope.registerView = [true, false, false]
-  $scope.master = {
-    'sex': 'H'
-  }
-  // Load profil edits
-  $scope.showProfil = false
-  $scope.toggle = function (scope) {
-    $scope.showProfil = !$scope.showProfil
-  }
+  $scope.stepWidth = 0;
+  $scope.master = {}
+
   // Reset form with master data
   $scope.reset = function () {
     $scope.user = angular.copy($scope.master)
+    $scope.stepWidth = 0;
+    $scope.stepMove = $scope.stepWidth + 'px'
   }
   // Init form with master data
   $scope.reset()
@@ -47,11 +44,15 @@ function registerController ($scope, $http, $location, RegisterService, authServ
       }
     })
   }
-  // Submit part
+  $scope.nextStep = (part) => {
+    if (part) {
+      $scope.stepWidth -= 1000
+      $scope.stepMove = $scope.stepWidth + 'px'
+    }
+  }
+
   $scope.register = function (user) {
-    if ($scope.user.mail !== $scope.emailConfirm) {
-      $scope.emailConfirm = ''
-    } else if (!$scope.pseudoValidity && !$scope.emailValidity) {
+    if (!$scope.pseudoValidity && !$scope.emailValidity) {
       let user = JSON.parse(JSON.stringify($scope.user))
       user.password = authService.hash($scope.user.password)
       $http.post('/api/register', user)

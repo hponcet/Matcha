@@ -1,0 +1,1224 @@
+[
+  {
+    "name": "Athlétisme",
+    "users": []
+  }, {
+    "name": "Marche",
+    "users": []
+  }, {
+    "name": "Marathon",
+    "users": []
+  }, {
+    "name": "Course de fond",
+    "users": []
+  }, {
+    "name": "Demi-fond",
+    "users": []
+  }, {
+    "name": "Course de haies",
+    "users": []
+  }, {
+    "name": "Sprint",
+    "users": []
+  }, {
+    "name": "Course de relais",
+    "users": []
+  }, {
+    "name": "Lancer du disque",
+    "users": []
+  }, {
+    "name": "Lancer du javelot",
+    "users": []
+  }, {
+    "name": "Lancer du marteau",
+    "users": []
+  }, {
+    "name": "Lancer du poids",
+    "users": []
+  }, {
+    "name": "Saut en longueur",
+    "users": []
+  }, {
+    "name": "Saut en hauteur",
+    "users": []
+  }, {
+    "name": "Saut à la perche",
+    "users": []
+  }, {
+    "name": "Triple saut",
+    "users": []
+  }, {
+    "name": "Décathlon",
+    "users": []
+  }, {
+    "name": "Heptathlon",
+    "users": []
+  }, {
+    "name": "Sports collectifs",
+    "users": []
+  }, {
+    "name": "Balai-ballon sur glace",
+    "users": []
+  }, {
+    "name": "Balle au tambourin",
+    "users": []
+  }, {
+    "name": "Ballon au poing",
+    "users": []
+  }, {
+    "name": "Bandy",
+    "users": []
+  }, {
+    "name": "Baseball",
+    "users": []
+  }, {
+    "name": "Basket-ball",
+    "users": []
+  }, {
+    "name": "Beach Volley",
+    "users": []
+  }, {
+    "name": "Beach Soccer",
+    "users": []
+  }, {
+    "name": "Bouzkachi",
+    "users": []
+  }, {
+    "name": "Calcio florentin",
+    "users": []
+  }, {
+    "name": "Camogie",
+    "users": []
+  }, {
+    "name": "Cricket",
+    "users": []
+  }, {
+    "name": "Crosse",
+    "users": []
+  }, {
+    "name": "Crosse ancienne",
+    "users": []
+  }, {
+    "name": "Curling",
+    "users": []
+  }, {
+    "name": "Dodgeball",
+    "users": []
+  }, {
+    "name": "Double dutch",
+    "users": []
+  }, {
+    "name": "Flag football",
+    "users": []
+  }, {
+    "name": "Floorball",
+    "users": []
+  }, {
+    "name": "Foot à 5",
+    "users": []
+  }, {
+    "name": "Football (ou soccer)",
+    "users": []
+  }, {
+    "name": "Football américain",
+    "users": []
+  }, {
+    "name": "Football australien",
+    "users": []
+  }, {
+    "name": "Football canadien",
+    "users": []
+  }, {
+    "name": "Football en salle",
+    "users": []
+  }, {
+    "name": "Football gaélique",
+    "users": []
+  }, {
+    "name": "Football universel",
+    "users": []
+  }, {
+    "name": "Jorkyball",
+    "users": []
+  }, {
+    "name": "Handball",
+    "users": []
+  }, {
+    "name": "Hockey en salle",
+    "users": []
+  }, {
+    "name": "Hockey subaquatique",
+    "users": []
+  }, {
+    "name": "Hockey sur gazon",
+    "users": []
+  }, {
+    "name": "Hockey sur glace",
+    "users": []
+  }, {
+    "name": "Horse-ball",
+    "users": []
+  }, {
+    "name": "Hurling",
+    "users": []
+  }, {
+    "name": "Kin-ball",
+    "users": []
+  }, {
+    "name": "Korfbal",
+    "users": []
+  }, {
+    "name": "Longue paume",
+    "users": []
+  }, {
+    "name": "Moto-ball",
+    "users": []
+  }, {
+    "name": "Netball",
+    "users": []
+  }, {
+    "name": "Paintball",
+    "users": []
+  }, {
+    "name": "Pelota P'urhépecha",
+    "users": []
+  }, {
+    "name": "Pelote basque",
+    "users": []
+  }, {
+    "name": "Pesäpallo",
+    "users": []
+  }, {
+    "name": "Plumfoot",
+    "users": []
+  }, {
+    "name": "Polo",
+    "users": []
+  }, {
+    "name": "Rafroball",
+    "users": []
+  }, {
+    "name": "Ringuette",
+    "users": []
+  }, {
+    "name": "Rink hockey",
+    "users": []
+  }, {
+    "name": "Roller derby",
+    "users": []
+  }, {
+    "name": "Roller in line hockey",
+    "users": []
+  }, {
+    "name": "Rollersoccer",
+    "users": []
+  }, {
+    "name": "Rounders",
+    "users": []
+  }, {
+    "name": "Rugby à sept",
+    "users": []
+  }, {
+    "name": "Rugby à XV",
+    "users": []
+  }, {
+    "name": "Rugby à XIII",
+    "users": []
+  }, {
+    "name": "Sepak Takraw",
+    "users": []
+  }, {
+    "name": "Shinty",
+    "users": []
+  }, {
+    "name": "Slamball",
+    "users": []
+  }, {
+    "name": "Softball",
+    "users": []
+  }, {
+    "name": "Stoolball",
+    "users": []
+  }, {
+    "name": "Street-hockey",
+    "users": []
+  }, {
+    "name": "Tchoukball",
+    "users": []
+  }, {
+    "name": "Touch rugby",
+    "users": []
+  }, {
+    "name": "Town ball",
+    "users": []
+  }, {
+    "name": "Ultimate",
+    "users": []
+  }, {
+    "name": "Unihockey (Floorball)",
+    "users": []
+  }, {
+    "name": "Vigoro",
+    "users": []
+  }, {
+    "name": "Volley-ball",
+    "users": []
+  }, {
+    "name": "Volata",
+    "users": []
+  }, {
+    "name": "Water polo",
+    "users": []
+  }, {
+    "name": "Gymnastique",
+    "users": []
+  }, {
+    "name": "Acrosport",
+    "users": []
+  }, {
+    "name": "Cheerleading",
+    "users": []
+  }, {
+    "name": "Gymnastique aérobique",
+    "users": []
+  }, {
+    "name": "Gymnastique artistique",
+    "users": []
+  }, {
+    "name": "Gymnastique rythmique",
+    "users": []
+  }, {
+    "name": "Majorette",
+    "users": []
+  }, {
+    "name": "Trampoline",
+    "users": []
+  }, {
+    "name": "Twirling bâton",
+    "users": []
+  }, {
+    "name": "Épreuves combinées",
+    "users": []
+  }, {
+    "name": "Triathlon",
+    "users": []
+  }, {
+    "name": "Duathlon",
+    "users": []
+  }, {
+    "name": "Aquathlon",
+    "users": []
+  }, {
+    "name": "Pentathlon moderne",
+    "users": []
+  }, {
+    "name": "Micronesian all around",
+    "users": []
+  }, {
+    "name": "Unifight",
+    "users": []
+  }, {
+    "name": "Sports mécaniques",
+    "users": []
+  }, {
+    "name": "Compétition automobile",
+    "users": []
+  }, {
+    "name": "WEC",
+    "users": []
+  }, {
+    "name": "Karting",
+    "users": []
+  }, {
+    "name": "NASCAR",
+    "users": []
+  }, {
+    "name": "DTM",
+    "users": []
+  }, {
+    "name": "WRC (Rallye)",
+    "users": []
+  }, {
+    "name": "Formule 1",
+    "users": []
+  }, {
+    "name": "Course de côte",
+    "users": []
+  }, {
+    "name": "Rallye-raid",
+    "users": []
+  }, {
+    "name": "WTCC",
+    "users": []
+  }, {
+    "name": "Indy Racing League",
+    "users": []
+  }, {
+    "name": "Fol'Car",
+    "users": []
+  }, {
+    "name": "Autocross",
+    "users": []
+  }, {
+    "name": "Rallycross",
+    "users": []
+  }, {
+    "name": "Compétition motocycliste",
+    "users": []
+  }, {
+    "name": "Endurance moto",
+    "users": []
+  }, {
+    "name": "Enduro",
+    "users": []
+  }, {
+    "name": "Freestyle motocross",
+    "users": []
+  }, {
+    "name": "Motocross",
+    "users": []
+  }, {
+    "name": "Supermotard",
+    "users": []
+  }, {
+    "name": "Trial",
+    "users": []
+  }, {
+    "name": "Speedway",
+    "users": []
+  }, {
+    "name": "Stunt",
+    "users": []
+  }, {
+    "name": "Supercross",
+    "users": []
+  }, {
+    "name": "Vitesse moto",
+    "users": []
+  }, {
+    "name": "Compétition aéronautique",
+    "users": []
+  }, {
+    "name": "Moto-ball",
+    "users": []
+  }, {
+    "name": "Motonautisme",
+    "users": []
+  }, {
+    "name": "Motoneige",
+    "users": []
+  }, {
+    "name": "Sports de raquette",
+    "users": []
+  }, {
+    "name": "Badminton",
+    "users": []
+  }, {
+    "name": "Jeu de paume",
+    "users": []
+  }, {
+    "name": "Padel",
+    "users": []
+  }, {
+    "name": "Peloc",
+    "users": []
+  }, {
+    "name": "Pelote basque",
+    "users": []
+  }, {
+    "name": "Racketlon",
+    "users": []
+  }, {
+    "name": "Racquetball",
+    "users": []
+  }, {
+    "name": "Speed Badminton",
+    "users": []
+  }, {
+    "name": "Speed-ball",
+    "users": []
+  }, {
+    "name": "Squash",
+    "users": []
+  }, {
+    "name": "Tennis",
+    "users": []
+  }, {
+    "name": "Tennis de table",
+    "users": []
+  }, {
+    "name": "Sports avec animaux",
+    "users": []
+  }, {
+    "name": "Agility",
+    "users": []
+  }, {
+    "name": "Cani-cross",
+    "users": []
+  }, {
+    "name": "Corrida",
+    "users": []
+  }, {
+    "name": "Courses de lévriers",
+    "users": []
+  }, {
+    "name": "Course de chameaux",
+    "users": []
+  }, {
+    "name": "Course de chars",
+    "users": []
+  }, {
+    "name": "Course de traîneaux",
+    "users": []
+  }, {
+    "name": "Rodéo",
+    "users": []
+  }, {
+    "name": "Sport hippique",
+    "users": []
+  }, {
+    "name": "Sports équestres",
+    "users": []
+  }, {
+    "name": "Amazone",
+    "users": []
+  }, {
+    "name": "Attelage",
+    "users": []
+  }, {
+    "name": "Attelage de tradition",
+    "users": []
+  }, {
+    "name": "Concours complet",
+    "users": []
+  }, {
+    "name": "Doma Vaquera",
+    "users": []
+  }, {
+    "name": "Dressage",
+    "users": []
+  }, {
+    "name": "Endurance",
+    "users": []
+  }, {
+    "name": "Équitation Camargue",
+    "users": []
+  }, {
+    "name": "Équitation islandaise",
+    "users": []
+  }, {
+    "name": "Équitation Western",
+    "users": []
+  }, {
+    "name": "Horse-ball",
+    "users": []
+  }, {
+    "name": "Hunter",
+    "users": []
+  }, {
+    "name": "Oulak",
+    "users": []
+  }, {
+    "name": "Polo",
+    "users": []
+  }, {
+    "name": "Polocrosse",
+    "users": []
+  }, {
+    "name": "Pony games",
+    "users": []
+  }, {
+    "name": "Rodéo chilien",
+    "users": []
+  }, {
+    "name": "Saut d'obstacles",
+    "users": []
+  }, {
+    "name": "Ski joëring",
+    "users": []
+  }, {
+    "name": "TREC",
+    "users": []
+  }, {
+    "name": "Voltige en Cercle",
+    "users": []
+  }, {
+    "name": "Sports anciens",
+    "users": []
+  }, {
+    "name": "Barres",
+    "users": []
+  }, {
+    "name": "Calcio florentin",
+    "users": []
+  }, {
+    "name": "Course de chars",
+    "users": []
+  }, {
+    "name": "Harpastum",
+    "users": []
+  }, {
+    "name": "Jeu de mail",
+    "users": []
+  }, {
+    "name": "Longue paume",
+    "users": []
+  }, {
+    "name": "Pancrace",
+    "users": []
+  }, {
+    "name": "Pentathlon antique",
+    "users": []
+  }, {
+    "name": "Pugilat",
+    "users": []
+  }, {
+    "name": "Soule",
+    "users": []
+  }, {
+    "name": "Town ball",
+    "users": []
+  }, {
+    "name": "Volata",
+    "users": []
+  }, {
+    "name": "Cyclisme",
+    "users": []
+  }, {
+    "name": "BMX",
+    "users": []
+  }, {
+    "name": "Cyclisme artistique",
+    "users": []
+  }, {
+    "name": "Cyclisme sur piste",
+    "users": []
+  }, {
+    "name": "Cyclisme sur route",
+    "users": []
+  }, {
+    "name": "Cyclo-cross",
+    "users": []
+  }, {
+    "name": "Vélo tout terrain",
+    "users": []
+  }, {
+    "name": "Arts martiaux",
+    "users": []
+  }, {
+    "name": "Aïkido",
+    "users": []
+  }, {
+    "name": "Bando et Banshay",
+    "users": []
+  }, {
+    "name": "Capoeira",
+    "users": []
+  }, {
+    "name": "Hapkido",
+    "users": []
+  }, {
+    "name": "Ju-jitsu (jujutsu)",
+    "users": []
+  }, {
+    "name": "Jiu-jitsu brésilien",
+    "users": []
+  }, {
+    "name": "Judo",
+    "users": []
+  }, {
+    "name": "Kalarippayatt",
+    "users": []
+  }, {
+    "name": "Karaté",
+    "users": []
+  }, {
+    "name": "Kendo",
+    "users": []
+  }, {
+    "name": "Kobudo",
+    "users": []
+  }, {
+    "name": "Krabi krabong",
+    "users": []
+  }, {
+    "name": "Muay-boran",
+    "users": []
+  }, {
+    "name": "Ninjutsu",
+    "users": []
+  }, {
+    "name": "Sumo",
+    "users": []
+  }, {
+    "name": "Taekwondo",
+    "users": []
+  }, {
+    "name": "Tai-chi-chuan",
+    "users": []
+  }, {
+    "name": "Unifight",
+    "users": []
+  }, {
+    "name": "Viet vo dao",
+    "users": []
+  }, {
+    "name": "Wushu (Kung Fu)",
+    "users": []
+  }, {
+    "name": "Sports de combat",
+    "users": []
+  }, {
+    "name": "Boxe",
+    "users": []
+  }, {
+    "name": "Boxe américaine (Full-contact)",
+    "users": []
+  }, {
+    "name": "Boxe anglaise",
+    "users": []
+  }, {
+    "name": "Boxe birmane (Lethwei)",
+    "users": []
+  }, {
+    "name": "Boxe française (Savate)",
+    "users": []
+  }, {
+    "name": "Boxe thaïlandaise",
+    "users": []
+  }, {
+    "name": "Kick-boxing américain",
+    "users": []
+  }, {
+    "name": "Kick-boxing japonais (K1)",
+    "users": []
+  }, {
+    "name": "Canne et Bâton de combat",
+    "users": []
+  }, {
+    "name": "Escrime",
+    "users": []
+  }, {
+    "name": "Lutte",
+    "users": []
+  }, {
+    "name": "Brancaille",
+    "users": []
+  }, {
+    "name": "Catch",
+    "users": []
+  }, {
+    "name": "Grappling",
+    "users": []
+  }, {
+    "name": "Gouren (Lutte bretonne)",
+    "users": []
+  }, {
+    "name": "Lutte gréco-romaine",
+    "users": []
+  }, {
+    "name": "Lutte libre",
+    "users": []
+  }, {
+    "name": "Lutte sénégalaise",
+    "users": []
+  }, {
+    "name": "Lutte mongole",
+    "users": []
+  }, {
+    "name": "Lutte turque",
+    "users": []
+  }, {
+    "name": "Naban (Lutte birmane)",
+    "users": []
+  }, {
+    "name": "Ssirum",
+    "users": []
+  }, {
+    "name": "Sambo",
+    "users": []
+  }, {
+    "name": "Mixed martial art (MMA)",
+    "users": []
+  }, {
+    "name": "Sport chanbara",
+    "users": []
+  }, {
+    "name": "Unifight",
+    "users": []
+  }, {
+    "name": "Sports de glace",
+    "users": []
+  }, {
+    "name": "Bandy",
+    "users": []
+  }, {
+    "name": "Bobsleigh",
+    "users": []
+  }, {
+    "name": "Curling",
+    "users": []
+  }, {
+    "name": "Hockey sur glace",
+    "users": []
+  }, {
+    "name": "Luge",
+    "users": []
+  }, {
+    "name": "Danse sur glace",
+    "users": []
+  }, {
+    "name": "Patinage artistique",
+    "users": []
+  }, {
+    "name": "Patinage de vitesse",
+    "users": []
+  }, {
+    "name": "Patinage extrême",
+    "users": []
+  }, {
+    "name": "Ringuette",
+    "users": []
+  }, {
+    "name": "Short-track",
+    "users": []
+  }, {
+    "name": "Skeleton",
+    "users": []
+  }, {
+    "name": "Sports de force",
+    "users": []
+  }, {
+    "name": "Fitness",
+    "users": []
+  }, {
+    "name": "Force basque",
+    "users": []
+  }, {
+    "name": "Haltérophilie",
+    "users": []
+  }, {
+    "name": "Highland Games",
+    "users": []
+  }, {
+    "name": "Powerlifting",
+    "users": []
+  }, {
+    "name": "Tir à la corde",
+    "users": []
+  }, {
+    "name": "Sports de plein air et de nature",
+    "users": []
+  }, {
+    "name": "Alpinisme",
+    "users": []
+  }, {
+    "name": "Canyonisme",
+    "users": []
+  }, {
+    "name": "Course d'orientation",
+    "users": []
+  }, {
+    "name": "Descente en rappel",
+    "users": []
+  }, {
+    "name": "Escalade sportive",
+    "users": []
+  }, {
+    "name": "Bloc (escalade)",
+    "users": []
+  }, {
+    "name": "Grimpe d'arbres",
+    "users": []
+  }, {
+    "name": "Pêche sportive",
+    "users": []
+  }, {
+    "name": "Escalade glaciaire",
+    "users": []
+  }, {
+    "name": "Raid nature",
+    "users": []
+  }, {
+    "name": "Randonnée pédestre",
+    "users": []
+  }, {
+    "name": "Spéléologie",
+    "users": []
+  }, {
+    "name": "Ultra-trail",
+    "users": []
+  }, {
+    "name": "Strongmanrun",
+    "users": []
+  }, {
+    "name": "Sports aériens",
+    "users": []
+  }, {
+    "name": "Aéromodélisme",
+    "users": []
+  }, {
+    "name": "Aérostation",
+    "users": []
+  }, {
+    "name": "Base jump",
+    "users": []
+  }, {
+    "name": "Cerf-volant",
+    "users": []
+  }, {
+    "name": "Deltaplane",
+    "users": []
+  }, {
+    "name": "Parachutisme",
+    "users": []
+  }, {
+    "name": "Parapente",
+    "users": []
+  }, {
+    "name": "ULM",
+    "users": []
+  }, {
+    "name": "Vol libre",
+    "users": []
+  }, {
+    "name": "Vol à voile",
+    "users": []
+  }, {
+    "name": "Voltige aérienne",
+    "users": []
+  }, {
+    "name": "Vol moteur",
+    "users": []
+  }, {
+    "name": "Sports de cible",
+    "users": []
+  }, {
+    "name": "Airsoft",
+    "users": []
+  }, {
+    "name": "Ball-trap",
+    "users": []
+  }, {
+    "name": "Billards",
+    "users": []
+  }, {
+    "name": "billard américain",
+    "users": []
+  }, {
+    "name": "billard anglais",
+    "users": []
+  }, {
+    "name": "billard français",
+    "users": []
+  }, {
+    "name": "Snooker",
+    "users": []
+  }, {
+    "name": "Boule bretonne",
+    "users": []
+  }, {
+    "name": "Boulingrin",
+    "users": []
+  }, {
+    "name": "Boomerang",
+    "users": []
+  }, {
+    "name": "Bowling",
+    "users": []
+  }, {
+    "name": "Croquet",
+    "users": []
+  }, {
+    "name": "Curling",
+    "users": []
+  }, {
+    "name": "Eisstock",
+    "users": []
+  }, {
+    "name": "Fléchettes",
+    "users": []
+  }, {
+    "name": "Golf",
+    "users": []
+  }, {
+    "name": "Jukskei",
+    "users": []
+  }, {
+    "name": "Paintball",
+    "users": []
+  }, {
+    "name": "Jeux de palets",
+    "users": []
+  }, {
+    "name": "Pétanque",
+    "users": []
+  }, {
+    "name": "Boule de fort",
+    "users": []
+  }, {
+    "name": "Quilles de neuf",
+    "users": []
+  }, {
+    "name": "Sarbacane (tir)",
+    "users": []
+  }, {
+    "name": "Sarbacana",
+    "users": []
+  }, {
+    "name": "Sport boule (boule lyonnaise)",
+    "users": []
+  }, {
+    "name": "Tir",
+    "users": []
+  }, {
+    "name": "Tir à l'arc",
+    "users": []
+  }, {
+    "name": "Sports nautiques",
+    "users": []
+  }, {
+    "name": "Apnée",
+    "users": []
+  }, {
+    "name": "Aviron",
+    "users": []
+  }, {
+    "name": "Barque de Sauvetage",
+    "users": []
+  }, {
+    "name": "Bateau-dragon",
+    "users": []
+  }, {
+    "name": "Canoë-kayak",
+    "users": []
+  }, {
+    "name": "Canyonisme",
+    "users": []
+  }, {
+    "name": "Char à voile",
+    "users": []
+  }, {
+    "name": "Chasse sous-marine",
+    "users": []
+  }, {
+    "name": "Dragon Boat",
+    "users": []
+  }, {
+    "name": "Hockey subaquatique",
+    "users": []
+  }, {
+    "name": "Motomarine",
+    "users": []
+  }, {
+    "name": "Joutes nautiques",
+    "users": []
+  }, {
+    "name": "Kayak-polo",
+    "users": []
+  }, {
+    "name": "Kitesurf",
+    "users": []
+  }, {
+    "name": "Nage avec palmes",
+    "users": []
+  }, {
+    "name": "Nage en eau vive",
+    "users": []
+  }, {
+    "name": "Motonautisme",
+    "users": []
+  }, {
+    "name": "Natation",
+    "users": []
+  }, {
+    "name": "Natation synchronisée",
+    "users": []
+  }, {
+    "name": "Pêche sportive",
+    "users": []
+  }, {
+    "name": "Planche à voile",
+    "users": []
+  }, {
+    "name": "Plongée sous-marine",
+    "users": []
+  }, {
+    "name": "Plongeon",
+    "users": []
+  }, {
+    "name": "Rafting",
+    "users": []
+  }, {
+    "name": "Rugby subaquatique",
+    "users": []
+  }, {
+    "name": "Ski nautique",
+    "users": []
+  }, {
+    "name": "Surf",
+    "users": []
+  }, {
+    "name": "Voile",
+    "users": []
+  }, {
+    "name": "Water polo",
+    "users": []
+  }, {
+    "name": "Wakeboard",
+    "users": []
+  }, {
+    "name": "Wakesurf",
+    "users": []
+  }, {
+    "name": "Sports de glisse",
+    "users": []
+  }, {
+    "name": "Ski",
+    "users": []
+  }, {
+    "name": "Biathlon",
+    "users": []
+  }, {
+    "name": "Combiné nordique",
+    "users": []
+  }, {
+    "name": "Saut à ski",
+    "users": []
+  }, {
+    "name": "Snowboard",
+    "users": []
+  }, {
+    "name": "Ski alpin",
+    "users": []
+  }, {
+    "name": "Ski alpinisme",
+    "users": []
+  }, {
+    "name": "Ski acrobatique",
+    "users": []
+  }, {
+    "name": "Ski freestyle",
+    "users": []
+  }, {
+    "name": "Ski de fond",
+    "users": []
+  }, {
+    "name": "Ski de vitesse",
+    "users": []
+  }, {
+    "name": "Ski extrême",
+    "users": []
+  }, {
+    "name": "Ski télémark",
+    "users": []
+  }, {
+    "name": "Nouveaux sports de glisse",
+    "users": []
+  }, {
+    "name": "Bodyboard",
+    "users": []
+  }, {
+    "name": "Freeboard",
+    "users": []
+  }, {
+    "name": "Kayak Surf",
+    "users": []
+  }, {
+    "name": "Kiteski",
+    "users": []
+  }, {
+    "name": "Kitesnow",
+    "users": []
+  }, {
+    "name": "Kitesurf",
+    "users": []
+  }, {
+    "name": "Mountainboard",
+    "users": []
+  }, {
+    "name": "Roller",
+    "users": []
+  }, {
+    "name": "Skateboard",
+    "users": []
+  }, {
+    "name": "Snowboard",
+    "users": []
+  }, {
+    "name": "Streetboard",
+    "users": []
+  }, {
+    "name": "Surf",
+    "users": []
+  }, {
+    "name": "Voile sur glace",
+    "users": []
+  }, {
+    "name": "Longskate",
+    "users": []
+  }, {
+    "name": "Trottinette Freestyle",
+    "users": []
+  }, {
+    "name": "Autres sports",
+    "users": []
+  }, {
+    "name": "Speedcubing",
+    "users": []
+  }, {
+    "name": "Footbag",
+    "users": []
+  }, {
+    "name": "Danse sportive",
+    "users": []
+  }, {
+    "name": "Main à main",
+    "users": []
+  }, {
+    "name": "Marche nordique",
+    "users": []
+  }, {
+    "name": "Parkour",
+    "users": []
+  }, {
+    "name": "Sport stacking",
+    "users": []
+  }, {
+    "name": "Sport électronique",
+    "users": []
+  }, {
+    "name": "Sports cérébraux (en)",
+    "users": []
+  }, {
+    "name": "Échecs",
+    "users": []
+  }, {
+    "name": "Go",
+    "users": []
+  }, {
+    "name": "Dames",
+    "users": []
+  }, {
+    "name": "Échecs chinois",
+    "users": []
+  }, {
+    "name": "Belote",
+    "users": []
+  }, {
+    "name": "Bridge",
+    "users": []
+  }, {
+    "name": "Poker",
+    "users": []
+  }, {
+    "name": "Cuisine",
+    "users": []
+  }, {
+    "name": "Sorties",
+    "users": []
+  }, {
+    "name": "Musique",
+    "users": []
+  }
+]

@@ -59,19 +59,19 @@ function login (res, username, password, callback) {
         } else {
           if (!user) {
             callback({
-              authentificated: false,
+              authentified: false,
               reason: 1,
               message: 'Authentication failed. User not found.'
             })
           } else if (password !== user.password) {
             callback({
-              authentificated: false,
+              authentified: false,
               reason: 2,
               message: 'Authentication failed. Wrong password.'
             })
           } else if (user.validation.account === false) {
             callback({
-              authentificated: false,
+              authentified: false,
               reason: 3,
               message: 'Authentication failed. Account is not validated.'
             })
@@ -86,7 +86,7 @@ function login (res, username, password, callback) {
             }
             callback({
               message: 'Authenticated.',
-              authentificated: true,
+              authentified: true,
               pseudo: user.pseudo,
               token: token,
               id: user._id,
@@ -105,6 +105,43 @@ function logout (token) {
   killSession(token)
   log.handleConsole('users', 'Logout (' + token + ')')
 }
+
+function cleanSessions () {
+  log.handleConsole('SERVER', 'Clean session in progress...')
+  MongoClient.connect(conf.db.mongoURI, function (err, db) {
+    if (err) {
+      log.handleError(null, 'Failed to connect database.', err.message, 500)
+    } else {
+      let sessions = db.collection('sessions')
+      let date = tools.newTimestamp()
+
+      sessions.find().toArray(function (err, allSessions) {
+        if (err) {
+          log.handleError(null, 'Failed to connect database.', err.message, 500)
+        } else {
+          let oldSessions = []
+
+          for (let i = 0; i < sessions.length; i++) {
+            if (allSessions[i].session.session.expire < date) {
+              oldSessions.push(allSessions[i].session.token)
+            }
+          }
+          return (
+            function () {
+              let i = 0
+              for (i; i < oldSessions.length; i++) {
+                killSession(oldSessions[i])
+              }
+              log.handleConsole('SERVER', i + ' sessions have been closed.')
+            }
+          )()
+        }
+      })
+      db.close()
+    }
+  })
+}
+
 function killOldSessionDeamon (freq) {
   let freqControl = freq
 
@@ -112,40 +149,9 @@ function killOldSessionDeamon (freq) {
     freqControl = FREQ_SESSION_CONTROL
   }
   log.handleConsole('SERVER', 'KillOldSessions process have been launch. Operations every ' + (freqControl / 1000) + 's.')
-  setInterval(function () {
-    log.handleConsole('SERVER', 'Clean session in progress...')
-    MongoClient.connect(conf.db.mongoURI, function (err, db) {
-      if (err) {
-        log.handleError(null, 'Failed to connect database.', err.message, 500)
-      } else {
-        let sessions = db.collection('sessions')
-        let date = tools.newTimestamp()
-
-        sessions.find().toArray(function (err, sessions) {
-          if (err) {
-            log.handleError(null, 'Failed to connect database.', err.message, 500)
-          } else {
-            let oldSessions = []
-
-            for (let i = 0; i < sessions.length; i++) {
-              if (sessions[i].session.session.expire < date) {
-                oldSessions.push(sessions[i].session.token)
-              }
-            }
-            return (
-              function () {
-                let i = 0
-                for (i; i < oldSessions.length; i++) {
-                  killSession(oldSessions[i])
-                }
-                log.handleConsole('SERVER', i + ' sessions have been closed.')
-              }
-            )()
-          }
-        })
-        db.close()
-      }
-    })
+  cleanSessions()
+  setInterval(() => {
+    cleanSessions()
   }, freqControl)
 }
 function auth (res, id, token) {
@@ -159,7 +165,7 @@ function auth (res, id, token) {
         const sessions = db.collection('sessions')
         sessions.findOne({ 'session.id': objId, 'session.token': token }, function (err, session) {
           if (!session || err) {
-            reject()
+            reject(err || null)
           } else {
             resolve()
           }

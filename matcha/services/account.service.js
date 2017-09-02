@@ -113,6 +113,47 @@ function insertUser (res, dataUser) {
       return dataUser
     })
 }
+function updateUser (res, id, place, dataUser) {
+  MongoClient.connect(conf.db.mongoURI, (err, db) => {
+    if (err) {
+      log.handleError(res, err.message, 'Failed to connect database.')
+    } else {
+      const users = db.collection('users')
+      const oid = validateObjectID(id)
+      switch (place) {
+        case 'desc':
+          users.update({ _id: oid }, {$set: { 'desc': dataUser }}, (err) => {
+            if (err) { log.handleError(res, err.message, 'Failed to update user.') }
+            else { res.status(201).json({status: '201'}) }
+          })
+          break
+        case 'bio':
+          users.update({ _id: oid }, {$set: { 'bio': dataUser }}, (err) => {
+            if (err) { log.handleError(res, err.message, 'Failed to update user.') }
+            else { res.status(201).json({status: '201'}) }
+          })
+          break
+        case 'job':
+          users.update({ _id: oid }, {$set: { 'job': dataUser }}, (err) => {
+            if (err) { log.handleError(res, err.message, 'Failed to update user.') }
+            else { res.status(201).json({status: '201'}) }
+          })
+          break
+        case 'tags':
+          users.update({ _id: oid }, {$set: { 'tags': dataUser }}, (err) => {
+            if (err) { log.handleError(res, err.message, 'Failed to update user.') }
+            else { res.status(201).json({status: '201'}) }
+          })
+          break
+        default:
+          res.status(404).json({status: '404'})
+          break
+      }
+
+      db.close()
+    }
+  })
+}
 function checkMail (res, mail, callback) {
   MongoClient.connect(conf.db.mongoURI, (err, db) => {
     if (err) {
@@ -174,5 +215,6 @@ module.exports = {
   getUsers,
   checkMail,
   checkPseudo,
-  getCoord
+  getCoord,
+  updateUser
 }

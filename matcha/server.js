@@ -3,7 +3,7 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const conf = require('./config.js')
 const	session	= require('./services/session.service.js')
-const	errManager = require("./services/log.service.js")
+const	errManager = require('./services/log.service.js')
 const app = express()
 const routes = require('./routes')
 
@@ -13,13 +13,11 @@ app.use(express.static(path.join(__dirname, '/public')))
 app.use('/api', routes)
 
 app.all('/*', function (req, res, next) {
-  res.sendFile('/views/base.html', { root: __dirname })
+  res.sendFile('/index.html', { root: __dirname })
 })
 app.all('/dist/app.bundle.js', function (req, res, next) {
   res.sendFile('/public/dist/app.bundle.js', { root: __dirname })
 })
-
-// Connect to the database before starting the application server.
 
 let server = app.listen(conf.server['serverPort'], () => {
   const port = server.address().port

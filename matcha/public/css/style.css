@@ -1,6 +1,14 @@
 body {
-    background-image: url('/img/bkgd.png');
+    /* background-image: url('/img/bkgd.png'); */
     background-repeat: repeat;
+    background-color: #282828   ;
+    color: #B9B7BA;
+}
+.view {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    width: 100%;
 }
 .select-null-value {
     box-shadow: none;
@@ -16,4 +24,199 @@ body {
 .form-control-err {
     margin-left: 5px;
     display: inline-block;
+}
+
+/******************/
+/*    box view    */
+/******************/
+.view-container {
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    width: 70%;
+    padding: 30px;
+    margin: 15px;
+    background-color: #303030;
+    border: 1px solid #252525;
+    border-radius: 3px;
+}
+.container-title {
+    align-self: center;
+}
+.container-profil-picture {
+    align-self: center;
+}
+.container-profil-picture img {
+    border-radius: 50%;
+    width: 300px;
+    border: 3px solid #252525;
+    box-shadow: 0 0 13px grey;
+}
+.box-container {
+    padding: 10px;
+    margin: 10px;
+    background-color: #282828;
+    border: 1px solid #252525;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+.box-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: -25px;
+    margin-bottom: 10px;
+    width: 100%;
+    color: #505050;
+}
+.box-content {
+    margin-left: 20px;
+}
+
+
+/******************/
+/* TAGS Directive */
+/******************/
+
+.tags-propositions-none {
+    display: none;
+}
+
+.tags-propositions {
+    position: absolute;
+    z-index: 10;
+    border: 1px solid grey;
+    border-radius: 3px;
+    min-width: 300px;
+}
+.tags-propositions-case {
+    background-color: #FFF;
+    color: #000;
+    height: 20px;
+    padding: 2px;
+}
+.tags-propositions-case:hover {
+    background-color: #81BEF7;
+    cursor: pointer;
+}
+.tags-input{
+    display: block;
+}
+.tags-container {
+    width: 80%;
+}
+.tags-selected {
+    border: 1PX solid #0174DF;
+    background-color: #81BEF7;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 4px;
+    margin: 2px;
+    color: #515052;
+}
+
+
+/******************/
+/*    Buttons     */
+/******************/
+.btn-edit {
+    width: 18px;
+    cursor: pointer;
+    float: right;
+    margin: 5px
+}
+.btn-valid {
+    width: 18px;
+    cursor: pointer;
+    float: left;
+    margin: 5px
+}
+.tags-del-btn {
+    width: 10px;
+    margin-right: 3px;
+    cursor: pointer;
+}
+
+
+/******************/
+/*      MENU      */
+/******************/
+.menu-container {
+    position: relative;
+    margin-left: -10px;
+    margin-right: -8px;
+    background-color: #9a17ef;
+    box-shadow: -3px 3px 10px #4b0876;
+}
+.menu-container li {
+    margin-top: 0px;
+    padding: 18px;
+    display: inline-block;
+    text-decoration: none;
+}
+.menu-container li:hover {
+    padding: 18px;
+    display: inline-block;
+    text-decoration: none;
+    background-color: #870fd5;
+}
+
+/******************/
+/*     INPUTS     */
+/******************/
+textarea
+{
+  width:100%;
+  height: 80px;
+  padding: 5px;
+  margin: 5px;
+  max-width:100%;
+  background: none;
+  background-color: #404040;
+  border: 0px solid grey;
+  font-size: 16px;
+  border-radius: 3px;
+  color: #c0c0c0;
+}
+
+input[type=text], input[type=password], input[type=email], input[type=tel]
+{
+  padding: 5px;
+  margin: 5px;
+  max-width:100%;
+  background: none;
+  background-color: #404040;
+  border: 0px solid grey;
+  font-size: 16px;
+  border-radius: 3px;
+  color: #c0c0c0;
+}
+
+.profil-input {
+    width: 80%;
+}
+
+/******************/
+/*    REGISTER    */
+/******************/
+.register-window {
+    overflow: hidden;
+    width: 100%;
+}
+.register-container {
+    white-space: nowrap;
+    padding-left: 20%;
+}
+.register-first {
+    display: inline-block;
+    -webkit-transition: margin-left 1s;
+    transition: margin-left 1s;
+    width: 1000px;
+}
+.register-box {
+    display: inline-block;
+    width: 1000px;
+    margin-left: 0px;
+}
+.register-btn {
+    margin-top: 100px;
 }
